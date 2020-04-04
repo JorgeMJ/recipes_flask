@@ -1,0 +1,1 @@
+''' Main function that will call the necessary functions '''
