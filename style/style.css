@@ -1,1 +1,133 @@
-/*CSS style sheet*/
+* {
+	box-sizing: border-box;
+	text-align: center;
+}
+
+body {
+	font-family: 'Gothic A1', sans-serif;
+}
+
+header {
+	background-color: #1FB622;
+	color: #EEEEEE;
+	height: 80px;
+	padding-top: 1px;
+}
+
+h1{
+	text-align: center;
+}
+
+#getBtn,
+#addBtn {
+	margin-top: 80px;
+	background-color: #FFF;
+	border-radius: 30px;
+	border-color: #1FB622;
+	color:#1FB622;
+	width: 300px;
+	height: 50px;
+	font-size: 20px;
+}
+
+#getBtn:hover,
+#addBtn:hover {
+	background-color: #CFF0C5;
+	color: white;
+}
+
+#getBtnSubmit,
+#addBtnSubmit {
+	background-color: #1FB622;
+	border-radius: 30px;
+	border-color: #1FB622;
+	color: #FFF;
+	margin-top: 20px;
+}
+
+#getRecipes,
+#addRecipes {
+	display: none;
+	margin-top: 20px;
+	border-top: 1px solid #1FB622;
+	border-bottom: 1px solid #1FB622;
+}
+
+#addRecipes form {
+	margin: 0 auto 20px auto;
+	width: 55%;
+	overflow: hidden;
+}
+
+#addRecipes form p,
+#addBtnSubmit {
+	float: right;
+}
+
+#addBtnSubmit{
+	margin-right: 42%;
+}
+
+.addInput {
+	width: 500px;
+	text-align: left;
+}
+
+textarea {
+	height: 100px;
+}
+
+.containerRcp {
+	border-top: 2px solid #1FB622;
+	height: auto;
+}
+
+.rcpName {
+	background-color: #CFF0C5;
+	border-style: none;
+	height: 30px;
+	width: 500px;
+	display:inline-block;
+	text-align: left;
+}
+
+.rcpName:hover {
+	background-color: #1FB622;
+	color: white;
+}
+
+.rcpTime {
+	height: auto;
+	width: 100px;
+	margin-left: 10px;
+	display:inline-block;
+	text-align: left;
+}
+
+.rcpKind {
+	height: auto;
+	width: 200px;
+	margin-left: 10px;
+	display:inline-block;
+	text-align: left;
+}
+
+
+.rcpDescription {
+	height: auto;
+	width: 60%;
+	margin: 0 auto 10px auto;
+	display: none;
+}
+
+.ingredientsList {
+	width: 80%;
+}
+
+.ingredientsList li {
+	text-align: left;
+}
+
+.rcpPreparation {
+	text-align: left;
+}

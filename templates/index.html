@@ -1,1 +1,95 @@
-<!-- Index HTML: Main structure of the page with input /output options -->
+<!-- Change buttons in forms for input type button. 
+     Elimintate the function to Js and update to work in Flask
+     Eliminate links to script.js and style.js 
+     Make it responsive (limit of width and mobile friendly -->
+
+<!DOCTYPE= html>
+<html lang= "en">
+<head>
+	<!--Basic Page Needs=====================================================-->
+    <title>Recipe Selector</title>
+    <!--Mobile Specific Metas================================================-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Fonts================================================================-->
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
+    <!--CSS==================================================================-->
+    <link rel="stylesheet" href="../style/style.css">
+</head>
+<body>
+<header>
+	<h1>Random Recipe Selector</h1>
+</header>
+	<div id= "test"></div>
+	<button id= "getBtn" type="button" onclick= "getBtnToggle()">Get Recipes</button>
+	<div id= "getRecipes">
+		<p><b>Type:</b></p>
+		<form name= "getSlctKind">
+			<div>
+				<input type= "checkbox" name= "kindRecipes" value= "all" onclick="uncheckEveryKind()" checked>All
+				<input type= "checkbox" name= "kindRecipes" value= "Soup" onclick="uncheckAll()">Soup
+				<input type= "checkbox" name= "kindRecipes" value= "Salad" onclick="uncheckAll()">Salad
+				<input type= "checkbox" name= "kindRecipes" value= "Meat" onclick="uncheckAll()">Meat
+				<input type= "checkbox" name= "kindRecipes" value= "Fish" onclick="uncheckAll()">Fish
+				<input type= "checkbox" name= "kindRecipes" value= "Legumes" onclick="uncheckAll()">Legumes
+				<input type= "checkbox" name= "kindRecipes" value= "Rice" onclick="uncheckAll()">Rice
+				<input type= "checkbox" name= "kindRecipes" value= "Pasta" onclick="uncheckAll()">Pasta
+				<input type= "checkbox" name= "kindRecipes" value= "Vegetables/Fruit" onclick="uncheckAll()">Vegetables/Fruit
+				<input type= "checkbox" name= "kindRecipes" value= "Dessert" onclick="uncheckAll()">Dessert
+				<input type= "checkbox" name= "kindRecipes" value= "Bread/Baked" onclick="uncheckAll()">Bread/Baked
+			</div>
+			<div>
+				<p><b>Number of Recipes:</b></p>
+				<input type= "radio" name= "numRecipes" value= "1" checked>1
+				<input type= "radio" name= "numRecipes" value= "2">2
+				<input type= "radio" name= "numRecipes" value= "3">3
+				<input type= "radio" name= "numRecipes" value= "4">4
+				<input type= "radio" name= "numRecipes" value= "5">5
+				<input type= "radio" name= "numRecipes" value= "6">6
+				<input type= "radio" name= "numRecipes" value= "7">7
+			</div>
+			<button id= "getBtnSubmit" type ="button" onclick= "displayRcp()">Get Your Recipe</button> 
+		</form>
+		
+		
+		<div id= "listRecipes"></div>	
+	</div><!--get-recipes-->
+
+	<button id= "addBtn" type="button" onclick= "addBtnToggle()">Add Recipes</button>
+	<div id = "addRecipes">
+		<form id = "addRecipeForm">
+			<p>Recipe: 
+			<input type="text" name= "rcp-name" placeholder= 'e.g. "Broiled chicken"' class= "addInput"></p>
+			<p>Kind: 
+			<select name= "addSlctKind" class= "addInput"></p>
+				<option value= "Soup">Soup</option>
+				<option value= "Salad">Salad</option>
+				<option value= "Meat">Meat</option>
+				<option value= "Fish">Fish</option>
+				<option value= "Legumes">Legumes</option>
+				<option value= "Rice">Rice</option>
+				<option value= "Pasta">Pasta</option>
+				<option value= "Vegtables/Fruit">Vegetables/Fruit</option>
+				<option value= "Dessert">Dessert</option>
+				<option value= "Bread/Baked">Bread/Baked</option>
+			</select>
+			<p>Cooking Time: 
+			<input type="text" name= "cook-time" placeholder= 'Enter time in minutes (e.g. "90")' class= "addInput">
+			</p>
+			<p>Ingredients & Quantities: 
+			<textarea placeholder= 'Enter ingredients separeted by commas (", ")' name= 'ingrdntIn' class= "addInput"></textarea>
+			</p>
+			<p>Preparation: 
+			<textarea placeholder= "Describe the preparation process" name= 'preparationIn' class= "addInput"></textarea><br>
+			</p>
+			<button id= "addBtnSubmit" type ="button" onclick= "submitRcp()">Add Your Recipe</button>
+		</form>
+	</div><!--add-recipes-->
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="../js/style.js"></script> 
+	<script src="js/recipes.js"></script>
+	<script src="js/script.js"></script>
+	
+</body>
+</html>
