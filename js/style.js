@@ -1,5 +1,6 @@
-function getBtnToggle(){
-	var x = document.getElementById("getRecipes");
+/* *DESCRIPTION* */
+function toggle(htmlItem){
+	var x = document.getElementById(htmlItem);
 
 	if (x.style.display !== "block"){
 		x.style.display = "block";
@@ -8,28 +9,16 @@ function getBtnToggle(){
 	else{
 		x.style.display = "none";
 	}
+}
+
+function getBtnToggle(){
+	toggle("getRecipes");
 }
 
 function addBtnToggle(){
-	var x = document.getElementById("addRecipes");
-
-	if (x.style.display !== "block"){
-		x.style.display = "block";
-	}
-
-	else{
-		x.style.display = "none";
-	}
+    toggle("addRecipes");
 }
 
 function showDescription(id){
-	var x = document.getElementById(`descript${id}`); 
-
-	if (x.style.display !== "block"){
-		x.style.display = "block";
-	}
-
-	else{
-		x.style.display = "none";
-	}
+	toggle(`descript${id}`); 
 }
