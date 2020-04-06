@@ -50,7 +50,7 @@ h1{
 	display: none;
 	margin-top: 20px;
 	border-top: 1px solid #1FB622;
-	border-bottom: 1px solid #1FB622;
+	border-bottom: 1px solid #1FB622;	
 }
 
 #addRecipes form {
@@ -130,4 +130,25 @@ textarea {
 
 .rcpPreparation {
 	text-align: left;
+}
+
+.divider {
+	min-height: calc(65vh - 100px);
+}
+
+footer {
+	height: 80px;
+	margin-top: 20px;
+	padding-top: 35px;
+	background-color: #1FB622;
+	color: #EEEEEE;
+	font-size: 12;
+}
+
+footer a {
+	color: #EEEEEE;
+}
+
+footer a:hover {
+	text-decoration: none;
 }
