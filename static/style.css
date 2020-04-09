@@ -1,3 +1,5 @@
+
+/*-- Layout ---------------------------------------------------------------------------------------------------*/
 * {
 	box-sizing: border-box;
 	text-align: center;
@@ -5,8 +7,11 @@
 
 body {
 	font-family: 'Gothic A1', sans-serif;
+	min-width: 900px;
 }
 
+
+/*-- Header ---------------------------------------------------------------------------------------------------*/
 header {
 	background-color: #1FB622;
 	color: #EEEEEE;
@@ -18,6 +23,7 @@ h1{
 	text-align: center;
 }
 
+/*-- Buttons ---------------------------------------------------------------------------------------------------*/
 #getBtn,
 #addBtn {
 	margin-top: 80px;
@@ -42,41 +48,49 @@ h1{
 	border-radius: 30px;
 	border-color: #1FB622;
 	color: #FFF;
-	margin-top: 20px;
+	margin: 20px;
+	width: 250px;
+	height: 35px;
 }
 
-#getRecipes,
-#addRecipes {
+/*-- Add/Get Recipe Containers ---------------------------------------------------------------------------------*/
+#getRecipes-container,
+#addRecipes-container {
 	display: none;
 	margin-top: 20px;
-	border-top: 1px solid #1FB622;
-	border-bottom: 1px solid #1FB622;	
+	/*border-top: 1px solid #1FB622;
+	border-bottom: 1px solid #1FB622;*/
 }
 
-#addRecipes form {
-	margin: 0 auto 20px auto;
+/*-- Get Recipe Form ---------------------------------------------------------------------------------------------*/
+#getRecipesForm {
+	margin: 0 auto;
+	padding-top: 10px;
+	background-color: #c8ffb8;	
+	width: 900px;
+}
+#getRecipesForm div div {
+	margin-top: 10px;
+}
+
+/*-- Add Recipe Form ----------------------------------------------------------------------------------------------*/
+#addRecipeForm {
+	background-color: #c8ffb8;
+	margin: 20px auto;
+	padding-top: 20px;
 	padding-right: 40px;
-	width: 55%;
+	width: 750px;
 	overflow: hidden;
 }
 
-/************************************/
-#addRecipes form div {
+#addRecipeForm div {
 	float: right;
-	margin-top: 15px;
+	margin: 15px auto;
 }
 
-#addRecipes form label {
+#addRecipeForm label {
 	float: left;
 	padding-right: 5px;
-}
-/*************************************/
-#addBtnSubmit {
-	float: right;
-}
-
-#addBtnSubmit{
-	margin-right: 42%;
 }
 
 .addInput {
@@ -88,18 +102,12 @@ textarea {
 	height: 100px;
 }
 
-.containerRcp {
-	border-top: 2px solid #1FB622;
-	height: auto;
-}
-
 .rcpName {
 	background-color: #CFF0C5;
 	border-style: none;
 	height: 30px;
 	width: 500px;
 	display:inline-block;
-	text-align: left;
 }
 
 .rcpName:hover {
@@ -112,7 +120,6 @@ textarea {
 	width: 100px;
 	margin-left: 10px;
 	display:inline-block;
-	text-align: left;
 }
 
 .rcpKind {
@@ -120,9 +127,7 @@ textarea {
 	width: 200px;
 	margin-left: 10px;
 	display:inline-block;
-	text-align: left;
 }
-
 
 .rcpDescription {
 	height: auto;
@@ -135,16 +140,9 @@ textarea {
 	width: 80%;
 }
 
-.ingredientsList li {
-	text-align: left;
-}
-
-.rcpPreparation {
-	text-align: left;
-}
-
-.divider {
-	min-height: calc(65vh - 100px);
+/* -- Footer ---------------------------------------------------------------------------------------------------*/
+.footer-divider {
+	min-height: calc(45vh - 100px);
 }
 
 footer {

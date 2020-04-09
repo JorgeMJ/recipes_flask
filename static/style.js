@@ -16,11 +16,11 @@ function toggle(htmlItem){
 }
 
 function getBtnToggle(){
-    toggle("getRecipes");
+    toggle("getRecipes-container");
 }
 
 function addBtnToggle(){
-    toggle("addRecipes");
+    toggle("addRecipes-container");
 }
 
 function showDescription(id){

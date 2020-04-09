@@ -1,8 +1,3 @@
-<!-- Change button to submit form to input type button. 
-     Elimintate the function to Js and update to work in Flask
-     Eliminate links to script.js and style.js 
-     Make it responsive (limit of width and mobile friendly -->
-
 <!DOCTYPE= html>
 <html lang= "en">
 <head>
@@ -20,88 +15,86 @@
 <header>
 	<h1>Random Recipe Selector</h1>
 </header>
-	<div id= "test"></div>
-	<button id= "getBtn" type="button" onclick= "getBtnToggle()">Get Recipes</button>
-	<div id= "getRecipes">
-		<p><b>Type:</b></p>
-		<form name= "getSlctKind">
-			<div>
-				<input type= "checkbox" name= "kindRecipes" value= "all" onclick="uncheckEveryKind()" checked>All
-				<input type= "checkbox" name= "kindRecipes" value= "Soup" onclick="uncheckAll()">Soup
-				<input type= "checkbox" name= "kindRecipes" value= "Salad" onclick="uncheckAll()">Salad
-				<input type= "checkbox" name= "kindRecipes" value= "Meat" onclick="uncheckAll()">Meat
-				<input type= "checkbox" name= "kindRecipes" value= "Fish" onclick="uncheckAll()">Fish
-				<input type= "checkbox" name= "kindRecipes" value= "Legumes" onclick="uncheckAll()">Legumes
-				<input type= "checkbox" name= "kindRecipes" value= "Rice" onclick="uncheckAll()">Rice
-				<input type= "checkbox" name= "kindRecipes" value= "Pasta" onclick="uncheckAll()">Pasta
-				<input type= "checkbox" name= "kindRecipes" value= "Vegetables/Fruit" onclick="uncheckAll()">Vegetables/Fruit
-				<input type= "checkbox" name= "kindRecipes" value= "Dessert" onclick="uncheckAll()">Dessert
-				<input type= "checkbox" name= "kindRecipes" value= "Bread/Baked" onclick="uncheckAll()">Bread/Baked
-			</div>
-			<div>
-				<p><b>Number of Recipes:</b></p>
-				<input type= "radio" name= "numRecipes" value= "1" checked>1
-				<input type= "radio" name= "numRecipes" value= "2">2
-				<input type= "radio" name= "numRecipes" value= "3">3
-				<input type= "radio" name= "numRecipes" value= "4">4
-				<input type= "radio" name= "numRecipes" value= "5">5
-				<input type= "radio" name= "numRecipes" value= "6">6
-				<input type= "radio" name= "numRecipes" value= "7">7
-			</div>
-			<button id= "getBtnSubmit" type ="button" onclick= "displayRcp()">Get Your Recipe</button> 
-		</form>
-		
-		
-		<div id= "listRecipes"></div>	
-	</div><!--get-recipes-->
+	
+<button id= "getBtn" type="button" onclick= "getBtnToggle()">Get Recipes</button>
+<div id= "getRecipes-container">
+	<form name="getRecipes" id="getRecipesForm"><!--Check if the name "getRecipes is used at all" -->
+		<div>
+			<div><label><strong>Type:</strong></label></div>
+			<input type= "checkbox" name= "kindRecipes" value= "all" onclick="uncheckEveryKind()" checked>All
+			<input type= "checkbox" name= "kindRecipes" value= "Soup" onclick="uncheckAll()">Soup
+			<input type= "checkbox" name= "kindRecipes" value= "Salad" onclick="uncheckAll()">Salad
+			<input type= "checkbox" name= "kindRecipes" value= "Meat" onclick="uncheckAll()">Meat
+			<input type= "checkbox" name= "kindRecipes" value= "Fish" onclick="uncheckAll()">Fish
+			<input type= "checkbox" name= "kindRecipes" value= "Legumes" onclick="uncheckAll()">Legumes
+			<input type= "checkbox" name= "kindRecipes" value= "Rice" onclick="uncheckAll()">Rice
+			<input type= "checkbox" name= "kindRecipes" value= "Pasta" onclick="uncheckAll()">Pasta
+			<input type= "checkbox" name= "kindRecipes" value= "Vegetables/Fruit" onclick="uncheckAll()">Vegetables/Fruit
+			<input type= "checkbox" name= "kindRecipes" value= "Dessert" onclick="uncheckAll()">Dessert
+			<input type= "checkbox" name= "kindRecipes" value= "Bread/Baked" onclick="uncheckAll()">Bread/Baked
+		</div>
+		<div>
+			<div><label><strong>Number of Recipes:</strong></label></div>
+			<input type= "radio" name= "numRecipes" value= "1" checked>1
+			<input type= "radio" name= "numRecipes" value= "2">2
+			<input type= "radio" name= "numRecipes" value= "3">3
+			<input type= "radio" name= "numRecipes" value= "4">4
+			<input type= "radio" name= "numRecipes" value= "5">5
+			<input type= "radio" name= "numRecipes" value= "6">6
+			<input type= "radio" name= "numRecipes" value= "7">7
+		</div>
+		<button id= "getBtnSubmit" type ="button" onclick= "displayRcp()">Get Your Recipe</button> 
+	</form>
+</div><!--get-recipes-->
 
-	<button id= "addBtn" type="button" onclick= "addBtnToggle()">Add Recipes</button>
-	<div id = "addRecipes">
-		<form id="addRecipeForm" action="/submit" method="POST">
-			<div>
-				<label>Recipe:</label>  
-				<input type="text" name= "nameIn" placeholder= 'e.g. "Broiled chicken"' class= "addInput" />
-			</div>
-			<div>
-			<label>Kind:</label> 
-				<select name="kindIn" class="addInput">
-					<option value="Soup">Soup</option>
-					<option value="Salad">Salad</option>
-					<option value="Meat">Meat</option>
-					<option value="Fish">Fish</option>
-					<option value="Legumes">Legumes</option>
-					<option value="Rice">Rice</option>
-					<option value="Pasta">Pasta</option>
-					<option value="Vegtables/Fruit">Vegetables/Fruit</option>
-					<option value="Dessert">Dessert</option>
-					<option value="Bread/Baked">Bread/Baked</option>
-				</select>
-			</div>
-			<div>
-				<label>Cooking Time:</label> 
-				<input type="text" name= "timeIn" placeholder= 'Enter time in minutes (e.g. "90")' class= "addInput" />
-			</div>
-			<div>
-				<label>Ingredients & Quantities:</label>
-				<textarea placeholder= 'Enter ingredients separeted by commas (", ")' name= 'ingredientsIn' class= "addInput"></textarea>
-			</div>
-			<div>
-				<label>Preparation:</label>  
-				<textarea placeholder= "Describe the preparation process" name= 'descriptionIn' class= "addInput"></textarea>
-			</div>
+<div id= "listRecipes-divider"></div>
 
-			<input type="submit" value="Add your Recipe" id="addBtnSubmit" />
-		</form>
-	</div><!--add-recipes-->
-	<div class="divider"></div>
+<button id= "addBtn" type="button" onclick= "addBtnToggle()">Add Recipes</button>
+<div id = "addRecipes-container">
+	<form id="addRecipeForm" action="/submit" method="POST">
+		<div>
+			<label>Recipe:</label>  
+			<input type="text" name="nameIn" placeholder='e.g. "Broiled chicken"' class="addInput" />
+		</div>
+		<div>
+		<label>Kind:</label> 
+			<select name="kindIn" class="addInput">
+				<option value="Soup">Soup</option>
+				<option value="Salad">Salad</option>
+				<option value="Meat">Meat</option>
+				<option value="Fish">Fish</option>
+				<option value="Legumes">Legumes</option>
+				<option value="Rice">Rice</option>
+				<option value="Pasta">Pasta</option>
+				<option value="Vegtables/Fruit">Vegetables/Fruit</option>
+				<option value="Dessert">Dessert</option>
+				<option value="Bread/Baked">Bread/Baked</option>
+			</select>
+		</div>
+		<div>
+			<label>Cooking Time:</label> 
+			<input type="text" name= "timeIn" placeholder= 'Enter time in minutes (e.g. "90")' class="addInput" />
+		</div>
+		<div>
+			<label>Ingredients & Quantities:</label>
+			<textarea placeholder= 'Enter ingredients separeted by commas (", ")' name= 'ingredientsIn' class="addInput"></textarea>
+		</div>
+		<div>
+			<label>Preparation:</label>  
+			<textarea placeholder= "Describe the preparation process" name= 'descriptionIn' class="addInput"></textarea>
+		</div>
+
+		<input type="submit" value="Add your Recipe" id="addBtnSubmit" />
+	</form>
+</div><!--add-recipes-->
+<div class="footer-divider"></div>
+
 <footer>
     <i>-- Created by <a href="http://www.jorgemartinjoven.dx.am" target="_blank">Jorge Martin Joven</a> --</i>
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="../static/style.js"></script> 
-<!--<script src="js/recipes.js"></script>
-<script src="js/script.js"></script>-->
 
 </body>
 </html>
