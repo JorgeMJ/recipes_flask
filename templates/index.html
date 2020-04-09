@@ -10,11 +10,24 @@
     <link href="https://fonts.googleapis.com/css?family=Gothic+A1" rel="stylesheet">
     <!--CSS==================================================================-->
     <link rel="stylesheet" href="../static/style.css">
+    <!--Bootstrap============================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
 </head>
 <body>
 <header>
 	<h1>Random Recipe Selector</h1>
 </header>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+	    {% for message in messages %}
+	      <div class="alert alert-success alert-dismissible" role="alert" style="width: 600px; margin: 5px auto">
+	      	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        {{ message }}
+	      </div>
+	    {% endfor %}
+	  {% endif %}
+	{% endwith %}
 	
 <button id= "getBtn" type="button" onclick= "getBtnToggle()">Get Recipes</button>
 <div id= "getRecipes-container">
@@ -50,6 +63,7 @@
 <div id= "listRecipes-divider"></div>
 
 <button id= "addBtn" type="button" onclick= "addBtnToggle()">Add Recipes</button>
+
 <div id = "addRecipes-container">
 	<form id="addRecipeForm" action="/submit" method="POST">
 		<div>
@@ -94,6 +108,7 @@
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="../static/style.js"></script> 
 
 </body>
