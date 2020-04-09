@@ -55,11 +55,22 @@ h1{
 
 #addRecipes form {
 	margin: 0 auto 20px auto;
+	padding-right: 40px;
 	width: 55%;
 	overflow: hidden;
 }
 
-#addRecipes form p,
+/************************************/
+#addRecipes form div {
+	float: right;
+	margin-top: 15px;
+}
+
+#addRecipes form label {
+	float: left;
+	padding-right: 5px;
+}
+/*************************************/
 #addBtnSubmit {
 	float: right;
 }
