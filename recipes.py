@@ -22,7 +22,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 #Crate the class for the DB
-class Recipes(db.Model):
+class Recipe(db.Model):
 	__tablename__='recipes'
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(200), unique=True)
@@ -32,11 +32,11 @@ class Recipes(db.Model):
 	description = db.Column(db.Text())
 
 	def __init__(self, name, kind, time, ingredients, description):
-		name = self.name
-		kind = self.kind
-		time = self.time
-		ingredients = self.ingredients
-		description = self.description
+		self.name = name
+		self.kind = kind 
+		self.time = time
+		self.ingredients = ingredients
+		self.description = description
 
 @app.route('/')
 def index():
@@ -48,12 +48,20 @@ def submit():
 	    
 		name = request.form['nameIn']
 		kind = request.form['kindIn']
+		####Verify time as an int
 		time = request.form['timeIn']
 		ingredients = request.form['ingredientsIn']
 		description = request.form['descriptionIn']
 
+		#Add a new recipe to DB	
+		try:	
+			new_recipe = Recipe(name, kind, time, ingredients, description)
+			db.session.add(new_recipe)
+			db.session.commit()
+		except Exception as e:
+			flash(e)
+
 		flash('Success! Your recipe has been added.')
-		print(name, kind, time, ingredients, description)
 		return render_template('index.html')
         
 
