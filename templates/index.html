@@ -21,7 +21,7 @@
 	{% with messages = get_flashed_messages() %}
 	  {% if messages %}
 	    {% for message in messages %}
-	      <div class="alert alert-success alert-dismissible" role="alert" style="width: 600px; margin: 5px auto">
+	      <div class="alert alert-warning alert-dismissible" role="alert" style="width: 600px; margin: 5px auto">
 	      	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 	        {{ message }}
 	      </div>
@@ -31,20 +31,20 @@
 	
 <button id= "getBtn" type="button" onclick= "getBtnToggle()">Get Recipes</button>
 <div id= "getRecipes-container">
-	<form name="getRecipes" id="getRecipesForm"><!--Check if the name "getRecipes is used at all" -->
+	<form name="getRecipes" id="getRecipesForm" action="/submit" method="GET"><!--Check if the name "getRecipes is used at all" -->
 		<div>
 			<div><label><strong>Type:</strong></label></div>
-			<input type= "checkbox" name= "kindRecipes" value= "all" onclick="uncheckEveryKind()" checked>All
-			<input type= "checkbox" name= "kindRecipes" value= "Soup" onclick="uncheckAll()">Soup
-			<input type= "checkbox" name= "kindRecipes" value= "Salad" onclick="uncheckAll()">Salad
-			<input type= "checkbox" name= "kindRecipes" value= "Meat" onclick="uncheckAll()">Meat
-			<input type= "checkbox" name= "kindRecipes" value= "Fish" onclick="uncheckAll()">Fish
-			<input type= "checkbox" name= "kindRecipes" value= "Legumes" onclick="uncheckAll()">Legumes
-			<input type= "checkbox" name= "kindRecipes" value= "Rice" onclick="uncheckAll()">Rice
-			<input type= "checkbox" name= "kindRecipes" value= "Pasta" onclick="uncheckAll()">Pasta
-			<input type= "checkbox" name= "kindRecipes" value= "Vegetables/Fruit" onclick="uncheckAll()">Vegetables/Fruit
-			<input type= "checkbox" name= "kindRecipes" value= "Dessert" onclick="uncheckAll()">Dessert
-			<input type= "checkbox" name= "kindRecipes" value= "Bread/Baked" onclick="uncheckAll()">Bread/Baked
+			<input type="checkbox" name="kindRecipes" value="all" onclick="uncheckEveryKind()" checked>All
+			<input type="checkbox" name="kindRecipes" value="Soup" onclick="uncheckAll()">Soup
+			<input type="checkbox" name="kindRecipes" value="Salad" onclick="uncheckAll()">Salad
+			<input type="checkbox" name="kindRecipes" value="Meat" onclick="uncheckAll()">Meat
+			<input type="checkbox" name="kindRecipes" value="Fish" onclick="uncheckAll()">Fish
+			<input type="checkbox" name="kindRecipes" value="Legumes" onclick="uncheckAll()">Legumes
+			<input type="checkbox" name="kindRecipes" value="Rice" onclick="uncheckAll()">Rice
+			<input type="checkbox" name="kindRecipes" value="Pasta" onclick="uncheckAll()">Pasta
+			<input type="checkbox" name="kindRecipes" value="Vegetables/Fruit" onclick="uncheckAll()">Vegetables/Fruit
+			<input type="checkbox" name="kindRecipes" value="Dessert" onclick="uncheckAll()">Dessert
+			<input type="checkbox" name="kindRecipes" value="Bread/Baked" onclick="uncheckAll()">Bread/Baked
 		</div>
 		<div>
 			<div><label><strong>Number of Recipes:</strong></label></div>
@@ -56,9 +56,18 @@
 			<input type= "radio" name= "numRecipes" value= "6">6
 			<input type= "radio" name= "numRecipes" value= "7">7
 		</div>
-		<button id= "getBtnSubmit" type ="button" onclick= "displayRcp()">Get Your Recipe</button> 
+		<!--<button id= "getBtnSubmit" type ="button" onclick= "displayRcp()">Get Your Recipe</button> -->
+		<input type="submit" value="Get your Recipe" id="getBtnSubmit" />
 	</form>
 </div><!--get-recipes-->
+
+{% if kind_recipes %}
+	{% for r in kind_recipes %}
+		<div>
+			{{ r }}
+		</div>
+	{% endfor %}
+{% endif %}
 
 <div id= "listRecipes-divider"></div>
 

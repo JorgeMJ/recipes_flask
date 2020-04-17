@@ -142,7 +142,7 @@ textarea {
 
 /* -- Footer ---------------------------------------------------------------------------------------------------*/
 .footer-divider {
-	min-height: calc(50vh - 100px);
+	min-height: calc(40vh - 100px);
 }
 
 footer {

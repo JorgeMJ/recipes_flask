@@ -1,6 +1,8 @@
 ''' Main function that will call the necessary functions '''
 from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
+import psycopg2
+
 
 
 app = Flask(__name__)
@@ -44,26 +46,37 @@ def index():
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
-	if request.method == 'POST':
-	    
-		name = request.form['nameIn']
-		kind = request.form['kindIn']
-		####Verify time as an int
-		time = request.form['timeIn']
-		ingredients = request.form['ingredientsIn']
-		description = request.form['descriptionIn']
-
-		#Add a new recipe to DB	
+	if request.method == 'POST':  
 		try:	
+			name = request.form['nameIn']
+			kind = request.form['kindIn']
+			time = int(request.form['timeIn'])
+			ingredients = request.form['ingredientsIn']
+			description = request.form['descriptionIn']
+
+			if db.session.query(Recipe).filter(Recipe.name == name).count() == 1:
+				flash("That recipe already exists. Provide a different recipe.")
+				return render_template('index.html')
+
+			#Add new recipe to the DB
 			new_recipe = Recipe(name, kind, time, ingredients, description)
 			db.session.add(new_recipe)
 			db.session.commit()
-		except Exception as e:
-			flash(e)
+		except ValueError:
+			flash('Enter "time" as a number.')
+			return render_template('index.html')
+		except Exception:
+			flash('There has been a problem.')
+			return render_template('index.html')
+		else:
+			flash('Success! Your recipe has been added.')
+			return render_template('index.html')
 
-		flash('Success! Your recipe has been added.')
-		return render_template('index.html')
-        
+	elif request.method == 'GET':
+		kind_recipes = request.args.getlist('kindRecipes')
+		num_recipes = request.args.get('numRecipes')
+		print(kind_recipes, num_recipes)
+		return render_template('index.html', kind_recipes = kind_recipes, num_recipes = num_recipes )
 
 if __name__ == "__main__":
 	app.run(debug=True)
