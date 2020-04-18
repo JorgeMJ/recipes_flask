@@ -1,1 +1,0 @@
-''' Will have the functiosn to generate the randoms recipe '''

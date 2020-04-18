@@ -34,7 +34,7 @@
 	<form name="getRecipes" id="getRecipesForm" action="/submit" method="GET"><!--Check if the name "getRecipes is used at all" -->
 		<div>
 			<div><label><strong>Type:</strong></label></div>
-			<input type="checkbox" name="kindRecipes" value="all" onclick="uncheckEveryKind()" checked>All
+			<input type="checkbox" name="kindRecipes" value="all" onclick="uncheckEveryKind()" checked>All 
 			<input type="checkbox" name="kindRecipes" value="Soup" onclick="uncheckAll()">Soup
 			<input type="checkbox" name="kindRecipes" value="Salad" onclick="uncheckAll()">Salad
 			<input type="checkbox" name="kindRecipes" value="Meat" onclick="uncheckAll()">Meat
@@ -61,10 +61,10 @@
 	</form>
 </div><!--get-recipes-->
 
-{% if kind_recipes %}
-	{% for r in kind_recipes %}
+{% if matching_recipes %}
+	{% for element in matching_recipes %}
 		<div>
-			{{ r }}
+			{{ element[0], element[1].name }}
 		</div>
 	{% endfor %}
 {% endif %}

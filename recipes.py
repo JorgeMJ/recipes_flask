@@ -2,6 +2,7 @@
 from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
+from retrieveFunctions import random_key
 
 
 
@@ -75,10 +76,34 @@ def submit():
 	elif request.method == 'GET':
 		kind_recipes = request.args.getlist('kindRecipes')
 		num_recipes = request.args.get('numRecipes')
-		print(kind_recipes, num_recipes)
-		return render_template('index.html', kind_recipes = kind_recipes, num_recipes = num_recipes )
+		
+		#1. Extract all recipes that are of kind_recipes
+		rcps = []
+		for kind in kind_recipes:
+			rcps += db.session.query(Recipe).filter(Recipe.kind == kind).all()
+
+		#2. Put them in a list of tuples where first element of each tuple is a number
+		matching_recipes = list(enumerate(rcps))
+		print('kind recipes: ', kind_recipes)
+		print('rcps: ', rcps)
+		print('matching_recipes: ', matching_recipes)
+
+		
+		#3. Loop: (runs as many times as num_recipes)
+		#3.1.Generate an integer from 1 to the total number of recipes in the dic
+		num_list = []
+		for i in range(num_recipes):
+			num_list.append(random_key(len(matching_recipes)))
+		#3.2.Select from the dict the recipe whose key is that number
+		filter(, matching_recipes)
+		#3.3.Displays the recipe in index.html OR create list holding all recipes and then
+		#    we loop through them to display them
+
+		
+		return render_template('index.html', matching_recipes = matching_recipes )
 
 if __name__ == "__main__":
 	app.run(debug=True)
 
-
+def myfunc():
+	
