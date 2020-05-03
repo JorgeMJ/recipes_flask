@@ -18,7 +18,7 @@
 <header>
 	<h1>Random Recipe Selector</h1>
 </header>
-	{% with messages = get_flashed_messages() %}
+	<!--{% with messages = get_flashed_messages() %}
 	  {% if messages %}
 	    {% for message in messages %}
 	      <div class="alert alert-warning alert-dismissible" role="alert" style="width: 600px; margin: 5px auto">
@@ -27,11 +27,11 @@
 	      </div>
 	    {% endfor %}
 	  {% endif %}
-	{% endwith %}
+	{% endwith %}-->
 	
-<button id= "getBtn" type="button" onclick= "getBtnToggle()">Get Recipes</button>
 <div id= "getRecipes-container">
 	<form name="getRecipes" id="getRecipesForm" action="/submit" method="GET"><!--Check if the name "getRecipes is used at all" -->
+		<legend>Get Your Recipe</legend>
 		<div>
 			<div><label><strong>Type:</strong></label></div>
 			<input type="checkbox" name="kindRecipes" value="all" onclick="uncheckEveryKind()" checked>All 
@@ -56,25 +56,21 @@
 			<input type= "radio" name= "numRecipes" value= "6">6
 			<input type= "radio" name= "numRecipes" value= "7">7
 		</div>
-		<!--<button id= "getBtnSubmit" type ="button" onclick= "displayRcp()">Get Your Recipe</button> -->
 		<input type="submit" value="Get your Recipe" id="getBtnSubmit" />
 	</form>
 </div><!--get-recipes-->
 
-{% if matching_recipes %}
+<!--{% if matching_recipes %}
 	{% for element in matching_recipes %}
 		<div>
 			{{ element[0], element[1].name }}
 		</div>
 	{% endfor %}
-{% endif %}
+{% endif %}-->
 
-<div id= "listRecipes-divider"></div>
-
-<button id= "addBtn" type="button" onclick= "addBtnToggle()">Add Recipes</button>
-
-<div id = "addRecipes-container">
+<aside id = "addRecipes-container">
 	<form id="addRecipeForm" action="/submit" method="POST">
+		<legend>Add Your Recipe</legend>
 		<div>
 			<label>Recipe:</label>  
 			<input type="text" name="nameIn" placeholder='e.g. "Broiled chicken"' class="addInput" />
@@ -109,7 +105,7 @@
 
 		<input type="submit" value="Submit your Recipe" id="addBtnSubmit" />
 	</form>
-</div><!--add-recipes-->
+</aside><!--add-recipes-->
 <div class="footer-divider"></div>
 
 <footer>
