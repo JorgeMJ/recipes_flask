@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 from retrieveFunctions import random_key
-
+from addRecipeForm import AddRecipeForm
 
 
 app = Flask(__name__)
@@ -40,38 +40,35 @@ class Recipe(db.Model):
 		self.time = time
 		self.ingredients = ingredients
 		self.description = description
-
+	
 @app.route('/')
 def index():
 	return render_template('index.html')
 
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
-	if request.method == 'POST':  
-		try:	
-			name = request.form['nameIn']
-			kind = request.form['kindIn']
-			time = int(request.form['timeIn'])
-			ingredients = request.form['ingredientsIn']
-			description = request.form['descriptionIn']
+	form = AddRecipeForm()
+	#request.method == 'POST'
+	#Validate_on_submit already takes into account if the method is POST
+	if form.validate_on_submit():	
+		#takes the input data from form
+		name = form.name.data
+		kind = form.kind.data
+		time = form.time.data
+		ingredients = form.ingredients.data
+		description = form.description.data
+		'''
+		if db.session.query(Recipe).filter(Recipe.name == name).count() == 1:
+			flash("That recipe already exists. Provide a different recipe.", "warning")
+			return render_template('index.html')
+		'''
+		#Add new recipe to the DB
+		new_recipe = Recipe(name, kind, time, ingredients, description)
+		db.session.add(new_recipe)
+		db.session.commit()
 
-			if db.session.query(Recipe).filter(Recipe.name == name).count() == 1:
-				flash("That recipe already exists. Provide a different recipe.")
-				return render_template('index.html')
-
-			#Add new recipe to the DB
-			new_recipe = Recipe(name, kind, time, ingredients, description)
-			db.session.add(new_recipe)
-			db.session.commit()
-		except ValueError:
-			flash('Enter "time" as a number.')
-			return render_template('index.html')
-		except Exception:
-			flash('There has been a problem.')
-			return render_template('index.html')
-		else:
-			flash('Success! Your recipe has been added.')
-			return render_template('index.html')
+		flash('Success! Your recipe has been added.')
+		return redirect(url_for('submit')) #maybe index???
 
 	elif request.method == 'GET':
 		kind_recipes = request.args.getlist('kindRecipes')
@@ -101,6 +98,8 @@ def submit():
 
 		
 		return render_template('index.html', matching_recipes = matching_recipes )
+	#In case the POST submition didn't go well
+	return render_template('index.html', form=form)
 
 if __name__ == "__main__":
 	app.run(debug=True)
