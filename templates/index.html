@@ -23,7 +23,7 @@
 	</div>
 
 <div id= "getRecipes-container">
-	<form name="getRecipes" id="getRecipesForm" action="/submit" method="GET"><!--Check if the name "getRecipes is used at all" -->
+	<form name="getRecipes" id="getRecipesForm" action="/" method="GET"><!--Check if the name "getRecipes is used at all" -->
 		<legend>Get Your Recipe</legend>
 		<div>
 			<div><label><strong>Type:</strong></label></div>
@@ -59,52 +59,40 @@
 </div><!--get-recipes-->
 
 <aside id = "addRecipes-container">
-	<form id="addRecipeForm" action="/" method="POST">
+	<form id="addRecipeForm" action="" method="POST">
+		
+		{{ form.csrf_token }}
+
 		<legend>Add Your Recipe</legend>
-		<!--<div>
-			<label>Recipe:</label>  
-			<input type="text" name="nameIn" placeholder='e.g. "Broiled chicken"' class="addInput" />
-		</div>
-		<div>
-		<label>Kind:</label> 
-			<select name="kindIn" class="addInput">
-				<option value="Soup">Soup</option>
-				<option value="Salad">Salad</option>
-				<option value="Meat">Meat</option>
-				<option value="Fish">Fish</option>
-				<option value="Legumes">Legumes</option>
-				<option value="Rice">Rice</option>
-				<option value="Pasta">Pasta</option>
-				<option value="Vegtables/Fruit">Vegetables/Fruit</option>
-				<option value="Dessert">Dessert</option>
-				<option value="Bread/Baked">Bread/Baked</option>
-			</select>
-		</div>
-		<div>
-			<label>Cooking Time:</label> 
-			<input type="text" name= "timeIn" placeholder= 'Enter time in minutes (e.g. "90")' class="addInput" />
-		</div>
-		<div>
-			<label>Ingredients & Quantities:</label>
-			<textarea placeholder= 'Enter ingredients separeted by commas (", ")' name= 'ingredientsIn' class="addInput"></textarea>
-		</div>
-		<div>
-			<label>Preparation:</label>  
-			<textarea placeholder="Describe the preparation process" name= 'descriptionIn' class="addInput"></textarea>
-		</div>
+		<div style="background-color:#ff9494;">
+			{% for field in form if field.name != "csrf_token" %}
+				{% for error in field.errors %}
+	                {{field.name}} : {{ error }}
+	            {% endfor %}
+            {% endfor %}
 
-		<input type="submit" value="Submit your Recipe" id="addBtnSubmit" />-->
-
-		{{ form.csrf_token() }}
-
-    	{% for field in form if field.name != "csrf_token" %}
-        	<p>{{ field.label() }}</p>
-        	<p>{{ field }}
-            {% for error in field.errors %}
-                {{ error }}
-        	{% endfor %}
-        </p>
-    	{% endfor %}
+        </div>
+		<div>
+			<label>{{ form.name.label() }}</label>  
+			<p>{{ form.name(class_='addInput', placeholder='e.g. "Broiled chicken"') }}</p>
+		</div>
+		<div>
+			<label>{{ form.kind.label() }}</label>
+			<p>{{ form.kind(class_='addInput') }}</p>
+		</div>
+		<div>
+			<label>{{ form.time.label() }}</label>
+			<p>{{ form.time(class_='addInput', placeholder='Enter time in minutes (e.g. "90")') }}</p>
+		</div>
+		<div>
+			<label>{{ form.ingredients.label() }}</label>
+			<p>{{ form.ingredients(class_='addInput', placeholder='Enter ingredients separeted by commas (", ")') }}</p>
+		</div>
+		<div>
+			<label>{{ form.description.label() }}</label>
+			<p>{{ form.description(class_='addInput', placeholder="Describe preparation process") }}</p>
+		</div>
+		<p>{{ form.submit(id='addBtnSubmit') }}</p>
 	</form>
 </aside><!--add-recipes-->
 <div class="footer-divider"></div>

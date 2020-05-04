@@ -1,8 +1,7 @@
 ''' Main function that will call the necessary functions '''
-from flask import Flask, render_template, request, flash
+from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
-from retrieveFunctions import random_key
 from addRecipeForm import AddRecipeForm
 
 
@@ -48,10 +47,9 @@ class Recipe(db.Model):
 def index():
 	return render_template('index.html')
 '''
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/submit/', methods=['POST', 'GET'])
 def submit():
 	form = AddRecipeForm()
-	#request.method == 'POST'
 	#Validate_on_submit already takes into account if the method is POST
 	if form.validate_on_submit():	
 		#takes the input data from form
@@ -75,7 +73,8 @@ def submit():
 		db.session.commit()
 		'''
 		flash('Success! Your recipe has been added.')
-		return redirect(url_for('/')) #maybe index???
+		return redirect(url_for('submit')) #maybe index???
+
 	'''
 	elif request.method == 'GET':
 		kind_recipes = request.args.getlist('kindRecipes')
@@ -107,7 +106,7 @@ def submit():
 		return render_template('index.html', matching_recipes = matching_recipes )
 	'''
 	#In case the POST submition didn't go well
-	return render_template('index.html', form = form)
+	return render_template('index.html', form=form)
 
 if __name__ == "__main__":
 	app.run()
