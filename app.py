@@ -10,7 +10,7 @@ app = Flask(__name__)
 app.debug=True
 #required by 'flash' becasue it works based on cookies
 #app.secret_key = 'my secret key'
-app.config['SECRET_KEY'] = 'my secret key2'
+app.config['SECRET_KEY'] = 'my secret key'
 
 #Variable ENV determines the environment
 ENV = 'dev'
@@ -26,7 +26,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #Create the database object
 db = SQLAlchemy(app)
 
-#Crate the class for the DB
+#Crate the table for the DB
 class Recipe(db.Model):
 	__tablename__='recipes'
 	id = db.Column(db.Integer, primary_key=True)
@@ -42,44 +42,42 @@ class Recipe(db.Model):
 		self.time = time
 		self.ingredients = ingredients
 		self.description = description
-'''
-@app.route('/')
-def index():
-	return render_template('index.html')
-'''
-@app.route('/submit/', methods=['POST', 'GET'])
+
+
+@app.route('/', methods=['POST', 'GET'])
 def submit():
 	form = AddRecipeForm()
 	#Validate_on_submit already takes into account if the method is POST
 	if form.validate_on_submit():	
-		#takes the input data from form
+		#Takes the input data from form
 		name = form.name.data
 		kind = form.kind.data
 		time = form.time.data
 		ingredients = form.ingredients.data
 		description = form.description.data
 
-		print(name)
-		print(kind)
-		print(time)
 		'''
 		if db.session.query(Recipe).filter(Recipe.name == name).count() == 1:
 			flash("That recipe already exists. Provide a different recipe.", "warning")
 			return render_template('index.html')
-		
+		'''
 		#Add new recipe to the DB
 		new_recipe = Recipe(name, kind, time, ingredients, description)
 		db.session.add(new_recipe)
 		db.session.commit()
-		'''
-		flash('Success! Your recipe has been added.')
-		return redirect(url_for('submit')) #maybe index???
 
-	'''
+		flash('Success! Your recipe has been added.', 'success')
+		return redirect(url_for('submit')) 
+
+	
 	elif request.method == 'GET':
+	
 		kind_recipes = request.args.getlist('kindRecipes')
 		num_recipes = request.args.get('numRecipes')
-		
+
+		print('kind recipes: ', kind_recipes)
+		print('num_recipes: ', num_recipes)
+		'''
 		#1. Extract all recipes that are of kind_recipes
 		rcps = []
 		for kind in kind_recipes:
@@ -102,9 +100,9 @@ def submit():
 		#3.3.Displays the recipe in index.html OR create list holding all recipes and then
 		#    we loop through them to display them
 	
-		
-		return render_template('index.html', matching_recipes = matching_recipes )
-	'''
+		'''
+		return render_template('index.html')#, matching_recipes = matching_recipes )
+	
 	#In case the POST submition didn't go well
 	return render_template('index.html', form=form)
 

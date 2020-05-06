@@ -23,7 +23,7 @@
 	</div>
 
 <div id= "getRecipes-container">
-	<form name="getRecipes" id="getRecipesForm" action="/" method="GET"><!--Check if the name "getRecipes is used at all" -->
+	<form name="getRecipes" id="getRecipesForm" action="" method="GET"><!--Check if the name "getRecipes is used at all" -->
 		<legend>Get Your Recipe</legend>
 		<div>
 			<div><label><strong>Type:</strong></label></div>
@@ -59,22 +59,24 @@
 </div><!--get-recipes-->
 
 <aside id = "addRecipes-container">
+
 	<form id="addRecipeForm" action="" method="POST">
 		
 		{{ form.csrf_token }}
 
 		<legend>Add Your Recipe</legend>
+
 		<div style="background-color:#ff9494;">
 			{% for field in form if field.name != "csrf_token" %}
 				{% for error in field.errors %}
-	                {{field.name}} : {{ error }}
+	                <p><strong>{{field.name}}:</strong> {{ error }}</p>
 	            {% endfor %}
             {% endfor %}
-
         </div>
+
 		<div>
 			<label>{{ form.name.label() }}</label>  
-			<p>{{ form.name(class_='addInput', placeholder='e.g. "Broiled chicken"') }}</p>
+			<p>{{ form.name(class_='addInput', placeholder='e.g. Broiled chicken') }}</p>
 		</div>
 		<div>
 			<label>{{ form.kind.label() }}</label>
@@ -82,11 +84,11 @@
 		</div>
 		<div>
 			<label>{{ form.time.label() }}</label>
-			<p>{{ form.time(class_='addInput', placeholder='Enter time in minutes (e.g. "90")') }}</p>
+			<p>{{ form.time(class_='addInput', placeholder='Enter time in minutes (e.g. 90)') }}</p>
 		</div>
 		<div>
 			<label>{{ form.ingredients.label() }}</label>
-			<p>{{ form.ingredients(class_='addInput', placeholder='Enter ingredients separeted by commas (", ")') }}</p>
+			<p>{{ form.ingredients(class_='addInput', placeholder='Enter ingredients separeted by commas ( , )') }}</p>
 		</div>
 		<div>
 			<label>{{ form.description.label() }}</label>
