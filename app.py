@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
-from addRecipeForm import AddRecipeForm
+from recipeForms import AddRecipeForm, GetRecipeForm
 
 
 app = Flask(__name__)
@@ -46,15 +46,15 @@ class Recipe(db.Model):
 
 @app.route('/', methods=['POST', 'GET'])
 def submit():
-	form = AddRecipeForm()
+	add_form = AddRecipeForm()
 	#Validate_on_submit already takes into account if the method is POST
-	if form.validate_on_submit():	
+	if add_form.validate_on_submit():	
 		#Takes the input data from form
-		name = form.name.data
-		kind = form.kind.data
-		time = form.time.data
-		ingredients = form.ingredients.data
-		description = form.description.data
+		name = add_form.name.data
+		kind = add_form.kind.data
+		time = add_form.time.data
+		ingredients = add_form.ingredients.data
+		description = add_form.description.data
 
 		'''
 		if db.session.query(Recipe).filter(Recipe.name == name).count() == 1:
@@ -77,6 +77,11 @@ def submit():
 
 		print('kind recipes: ', kind_recipes)
 		print('num_recipes: ', num_recipes)
+
+		get_form = GetRecipeForm()
+
+		if get_form.validate_on_submit():
+			cosa = get_form.cosa.data
 		'''
 		#1. Extract all recipes that are of kind_recipes
 		rcps = []
@@ -101,10 +106,11 @@ def submit():
 		#    we loop through them to display them
 	
 		'''
-		return render_template('index.html')#, matching_recipes = matching_recipes )
+		#return render_template('index.html')#, matching_recipes = matching_recipes )
+		return render_template('index.html', add_form=add_form, get_form=get_form)
 	
 	#In case the POST submition didn't go well
-	return render_template('index.html', form=form)
+	return render_template('index.html', add_form=add_form, get_form=get_form)
 
 if __name__ == "__main__":
 	app.run()

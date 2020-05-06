@@ -79,6 +79,10 @@ h1{
 	text-align: left;
 }
 
+textarea {
+	height: 80px;
+}
+
 /********************** list of selected recipes to be displayed*****************************/
 .rcpName {
 	background-color: #CFF0C5;

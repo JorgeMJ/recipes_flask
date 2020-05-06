@@ -1,7 +1,7 @@
 '''Contains the class to create forms to add recipes including validation'''
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField, IntegerField, SelectField
+from wtforms import StringField, SubmitField, TextAreaField, IntegerField, SelectField, BooleanField
 from wtforms.validators import DataRequired 
 
 class AddRecipeForm(FlaskForm):
@@ -14,4 +14,6 @@ class AddRecipeForm(FlaskForm):
 	description = TextAreaField("Description: ", validators=[DataRequired()])
 	submit = SubmitField("Submit Your Recipe")
 
-
+class GetRecipeForm(FlaskForm):
+	cosa = BooleanField("cosa")
+	submit = SubmitField("Get Your Recipe")

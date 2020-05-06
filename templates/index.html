@@ -49,7 +49,13 @@
 			<input type= "radio" name= "numRecipes" value= "6">6
 			<input type= "radio" name= "numRecipes" value= "7">7
 		</div>
-		<input type="submit" value="Get your Recipe" id="getBtnSubmit" />
+		<!--<input type="submit" value="Get your Recipe" id="getBtnSubmit" />-->
+
+		{{ get_form.csrf_token }}
+
+			{{ get_form.cosa }}
+			<p>{{ get_form.submit(id='addBtnSubmit') }}</p>
+
 		
 	</form>
 
@@ -62,12 +68,12 @@
 
 	<form id="addRecipeForm" action="" method="POST">
 		
-		{{ form.csrf_token }}
+		{{ add_form.csrf_token }}
 
 		<legend>Add Your Recipe</legend>
 
 		<div style="background-color:#ff9494;">
-			{% for field in form if field.name != "csrf_token" %}
+			{% for field in add_form if field.name != "csrf_token" %}
 				{% for error in field.errors %}
 	                <p><strong>{{field.name}}:</strong> {{ error }}</p>
 	            {% endfor %}
@@ -75,26 +81,26 @@
         </div>
 
 		<div>
-			<label>{{ form.name.label() }}</label>  
-			<p>{{ form.name(class_='addInput', placeholder='e.g. Broiled chicken') }}</p>
+			<label>{{ add_form.name.label() }}</label>  
+			<p>{{ add_form.name(class_='addInput', placeholder='e.g. Broiled chicken') }}</p>
 		</div>
 		<div>
-			<label>{{ form.kind.label() }}</label>
-			<p>{{ form.kind(class_='addInput') }}</p>
+			<label>{{ add_form.kind.label() }}</label>
+			<p>{{ add_form.kind(class_='addInput') }}</p>
 		</div>
 		<div>
-			<label>{{ form.time.label() }}</label>
-			<p>{{ form.time(class_='addInput', placeholder='Enter time in minutes (e.g. 90)') }}</p>
+			<label>{{ add_form.time.label() }}</label>
+			<p>{{ add_form.time(class_='addInput', placeholder='Enter time in minutes (e.g. 90)') }}</p>
 		</div>
 		<div>
-			<label>{{ form.ingredients.label() }}</label>
-			<p>{{ form.ingredients(class_='addInput', placeholder='Enter ingredients separeted by commas ( , )') }}</p>
+			<label>{{ add_form.ingredients.label() }}</label>
+			<p>{{ add_form.ingredients(class_='addInput', placeholder='Enter ingredients separeted by commas ( , )') }}</p>
 		</div>
 		<div>
-			<label>{{ form.description.label() }}</label>
-			<p>{{ form.description(class_='addInput', placeholder="Describe preparation process") }}</p>
+			<label>{{ add_form.description.label() }}</label>
+			<p>{{ add_form.description(class_='addInput', placeholder="Describe preparation process") }}</p>
 		</div>
-		<p>{{ form.submit(id='addBtnSubmit') }}</p>
+		<p>{{ add_form.submit(id='addBtnSubmit') }}</p>
 	</form>
 </aside><!--add-recipes-->
 <div class="footer-divider"></div>
