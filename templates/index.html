@@ -24,8 +24,6 @@
 
 <div id= "getRecipes-container">
 	<form name="getRecipes" id="getRecipesForm" action="" method="GET"><!--Check if the name "getRecipes is used at all" -->
-		
-
 		<legend>Get Your Recipe</legend>
 		<!--<div>
 			<div><label><strong>Type:</strong></label></div>
@@ -52,33 +50,19 @@
 			<input type= "radio" name= "numRecipes" value= "7">7
 		</div>
 		<input type="submit" value="Get your Recipe" id="getBtnSubmit" />-->
-		{{ get_form.csrf_token }}
+		
 
+		{% for field in get_form if field.name != "submit" and field.type == "BooleanField" %}
+
+			<label class="getFormLabel">{{ field.label() }}</label>
+			{{ field }}
+
+		{% endfor %}
+
+		<label>{{ get_form.number.label() }}</label>
+		{{ get_form.number(class="numRecipes") }}
 		
-		<label>{{ get_form.all.label() }}</label>
-			{{ get_form.all(_name="kindRecipes") }}
-		<label>{{ get_form.soup.label() }}</label>
-			{{ get_form.soup(_name="kindRecipes") }}
-		<label>{{ get_form.salad.label() }}</label>
-			{{ get_form.salad(_nam="kindRecipes") }}
-		<label>{{ get_form.meat.label() }}</label>
-			{{ get_form.meat(_name="kindRecipes") }}
-		<label>{{ get_form.fish.label() }}</label>
-			{{ get_form.fish(_name="kindRecipes") }}
-		<label>{{ get_form.legumes.label() }}</label>
-			{{ get_form.legumes(_name="kindRecipes") }}
-		<label>{{ get_form.rice.label() }}</label>
-			{{ get_form.rice(_name="kindRecipes") }}
-		<label>{{ get_form.pasta.label() }}</label>
-			{{ get_form.pasta(_name="kindRecipes") }}
-		<label>{{ get_form.vegetables.label() }}</label>
-			{{ get_form.vegetables(_name="kindRecipes")}}
-		<label>{{ get_form.dessert.label() }}</label>
-			{{ get_form.dessert(_name="kindRecipes") }}
-		<label>{{ get_form.bread.label() }}</label>
-			{{ get_form.bread(_name="kindRecipes") }}
-		
-		<p>{{ get_form.submit(id='addBtnSubmit') }}</p>
+		<p>{{ get_form.submit(id='btnSubmit') }}</p>
 	</form>
 
 	<div>
@@ -122,7 +106,7 @@
 			<label>{{ add_form.description.label() }}</label>
 			<p>{{ add_form.description(class_='addInput', placeholder="Describe preparation process") }}</p>
 		</div>
-		<p>{{ add_form.submit(id='addBtnSubmit') }}</p>
+		<p>{{ add_form.submit(id='btnSubmit') }}</p>
 	</form>
 </aside><!--add-recipes-->
 <div class="footer-divider"></div>

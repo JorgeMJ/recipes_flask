@@ -84,7 +84,7 @@ def submit():
 		checklist = request.args.getlist("kindRecipes")
 		print("Checklist: ", checklist)
 		'''
-		selected = {
+		selected_recipes = {
 			'all': get_form.all.data,
 			'soup': get_form.soup.data,
 			'salad': get_form.salad.data,
@@ -97,8 +97,15 @@ def submit():
 			'dessert': get_form.dessert.data,
 			'bread': get_form.bread.data
 		}
+
+		selected_number = get_form.number.data
+
+		sr =list( map(lambda x: x[0], list( filter( lambda elem: elem[1], selected_recipes.items() ))))
 		
-		print( "dictio: ", selected)
+		
+
+		print( "SR: ", sr)
+		print("selected_number:", selected_number)
 
 
 		'''

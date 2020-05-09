@@ -24,8 +24,7 @@ h1{
 }
 
 /*-- Buttons ---------------------------------------------------------------------------------------------------*/
-#getBtnSubmit,
-#addBtnSubmit {
+#btnSubmit {
 	background-color: #1FB622;
 	border-radius: 30px;
 	border-color: #1FB622;
@@ -53,12 +52,29 @@ h1{
 #getRecipesForm {
 	margin: 20 auto;
 	padding: 20px;
+	padding-bottom: 0;
 	width: 750px;
 	border-bottom: 1px solid #1FB622;
 }
 
 #getRecipesForm div div {
 	margin-top: 10px;
+}
+
+.getFormLabel {
+	font-size: 11px;
+	margin-left: 5px;
+}
+
+.numRecipes {
+	list-style-type: none;
+	align-items: center;
+	padding: 0;
+}
+
+.numRecipes li {
+	display: inline-block;
+	margin-left: 10px;
 }
 
 /*-- Add Recipe Form ----------------------------------------------------------------------------------------------*/
