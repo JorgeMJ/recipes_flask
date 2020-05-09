@@ -71,17 +71,36 @@ def submit():
 
 	
 	elif request.method == 'GET':
-	
+		'''
 		kind_recipes = request.args.getlist('kindRecipes')
 		num_recipes = request.args.get('numRecipes')
 
 		print('kind recipes: ', kind_recipes)
 		print('num_recipes: ', num_recipes)
+		'''
 
-		get_form = GetRecipeForm()
+		get_form = GetRecipeForm(request.args)
+		'''
+		checklist = request.args.getlist("kindRecipes")
+		print("Checklist: ", checklist)
+		'''
+		selected = {
+			'all': get_form.all.data,
+			'soup': get_form.soup.data,
+			'salad': get_form.salad.data,
+			'meat': get_form.meat.data,
+			'fish': get_form.fish.data,
+			'legumes': get_form.legumes.data,
+			'rice': get_form.rice.data,
+			'pasta': get_form.pasta.data,
+			'vegetables': get_form.vegetables.data,
+			'dessert': get_form.dessert.data,
+			'bread': get_form.bread.data
+		}
+		
+		print( "dictio: ", selected)
 
-		if get_form.validate_on_submit():
-			cosa = get_form.cosa.data
+
 		'''
 		#1. Extract all recipes that are of kind_recipes
 		rcps = []
@@ -106,10 +125,11 @@ def submit():
 		#    we loop through them to display them
 	
 		'''
-		#return render_template('index.html')#, matching_recipes = matching_recipes )
+		#return render_template('index.html', add_form=add_form, kind_recipes=kind_recipes, num_recipes=num_recipes)
 		return render_template('index.html', add_form=add_form, get_form=get_form)
 	
 	#In case the POST submition didn't go well
+	#return render_template('index.html', add_form=add_form, kind_recipes=kind_recipes, num_recipes=num_recipes)
 	return render_template('index.html', add_form=add_form, get_form=get_form)
 
 if __name__ == "__main__":
