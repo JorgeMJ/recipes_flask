@@ -16,8 +16,8 @@ class AddRecipeForm(FlaskForm):
 	submit = SubmitField("Submit Your Recipe")
 
 
-class GetRecipeForm(FlaskForm):
-	all =        BooleanField("All", default="checked")
+class GetRecipeForm(Form):
+	all =        BooleanField('All')
 	soup =       BooleanField('Soup')
 	salad =      BooleanField('Salad')
 	meat =       BooleanField('Meat')
@@ -30,6 +30,6 @@ class GetRecipeForm(FlaskForm):
 	bread =      BooleanField('Bread/Baked')
 
 	number =     RadioField("Number of Recipes:", choices=[('1', '1'), ('2', '2'), ('3', '3'),
-				 ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7')], validators=[DataRequired()])
+				 ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7')], default='1')
 
 	submit = SubmitField("Get Your Recipe")

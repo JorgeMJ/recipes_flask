@@ -99,11 +99,9 @@ def submit():
 		}
 
 		selected_number = get_form.number.data
-
+		#create a list of the 
 		sr =list( map(lambda x: x[0], list( filter( lambda elem: elem[1], selected_recipes.items() ))))
 		
-		
-
 		print( "SR: ", sr)
 		print("selected_number:", selected_number)
 
