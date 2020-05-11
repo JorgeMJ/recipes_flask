@@ -15,14 +15,24 @@ function toggle(htmlItem){
 	}
 }
 
-function getBtnToggle(){
-    toggle("getRecipes-container");
-}
-
-function addBtnToggle(){
-    toggle("addRecipes-container");
-}
-
 function showDescription(id){
     toggle(`descript${id}`); 
+}
+
+
+
+
+//OUTPUT: In 'kind' recipes, it unchecks 'All' whenever any other option is checked. 
+function uncheckAll() {
+	$(document).getElementsByClass('kindRecipes')[0].checked=false;
+}
+
+//OUTPUT: In 'kind' recipes, it unchecks every kind whenever 'All' is checked.
+function uncheckKindRecipes(){
+	let kindRecipes = document.getElementsByClass('kindRecipes');
+
+	for(i=1; i < kindRecipes.length; i++)
+	{
+		kindRecipes[i].checked = false;
+	}
 }

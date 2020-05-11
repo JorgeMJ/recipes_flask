@@ -55,10 +55,13 @@
 		
 
 		{% for field in get_form if field.name != "submit" and field.type == "BooleanField" %}
-
-			<label class="getFormLabel">{{ field.label() }}</label>
-			{{ field }}
-
+			{% if field.name == 'all'%}
+				<label class="getFormLabel">{{ field.label() }}</label>
+				{{ field(class="kindRecipesAll", onclick="uncheckKindRecipes()") }}
+			{% else %}
+				<label class="getFormLabel">{{ field.label() }}</label>
+				{{ field(class="kindRecipes", onclick="uncheckAll()") }}
+			{% endif %}
 		{% endfor %}
 
 		<label>{{ get_form.number.label() }}</label>
