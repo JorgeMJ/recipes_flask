@@ -47,7 +47,8 @@ class Recipe(db.Model):
 @app.route('/', methods=['POST', 'GET'])
 def submit():
 	add_form = AddRecipeForm()
-	#Validate_on_submit already takes into account if the method is POST
+	get_form = GetRecipeForm(request.args)
+	
 	if add_form.validate_on_submit():	
 		#Takes the input data from form
 		name = add_form.name.data
@@ -69,21 +70,8 @@ def submit():
 		flash('Success! Your recipe has been added.', 'success')
 		return redirect(url_for('submit')) 
 
-	
 	elif request.method == 'GET':
-		'''
-		kind_recipes = request.args.getlist('kindRecipes')
-		num_recipes = request.args.get('numRecipes')
-
-		print('kind recipes: ', kind_recipes)
-		print('num_recipes: ', num_recipes)
-		'''
-
-		get_form = GetRecipeForm(request.args)
-		'''
-		checklist = request.args.getlist("kindRecipes")
-		print("Checklist: ", checklist)
-		'''
+		
 		selected_recipes = {
 			'all': get_form.all.data,
 			'soup': get_form.soup.data,
@@ -97,37 +85,37 @@ def submit():
 			'dessert': get_form.dessert.data,
 			'bread': get_form.bread.data
 		}
-
 		selected_number = get_form.number.data
-		#create a list of the 
-		sr =list( map(lambda x: x[0], list( filter( lambda elem: elem[1], selected_recipes.items() ))))
-		
-		print( "SR: ", sr)
-		print("selected_number:", selected_number)
 
+		#create a list of selected recipes
+		selected_recipes_list = list( map(lambda elem: elem[0], list( filter( lambda elem: elem[1], selected_recipes.items() ))))
+		
 
 		'''
+		this flash shows on load. How to fix it??
+		if len(selected_recipes_list) == 0:
+			flash("You must select a recipe kind.", "warning")
+		else:
+			pass
+
 		#1. Extract all recipes that are of kind_recipes
 		rcps = []
 		for kind in kind_recipes:
 			rcps += db.session.query(Recipe).filter(Recipe.kind == kind).all()
 
-		#2. Put them in a list of tuples where first element of each tuple is a number
-		matching_recipes = list(enumerate(rcps))
-		print('kind recipes: ', kind_recipes)
-		print('rcps: ', rcps)
-		print('matching_recipes: ', matching_recipes)
+			1.1. if the total number of recipes is less than the selected_number, flash and redirect.
 
+		#2. Put recipes in a list of tuples where first element of each tuple is a number
+		matching_recipes = list(enumerate(rcps))
 		
-		#3. Loop: (runs as many times as num_recipes)
-		#3.1.Generate an integer from 1 to the total number of recipes in the dic
-		num_list = []
-		for i in range(num_recipes):
-			num_list.append(random_key(len(matching_recipes)))
-		#3.2.Select from the dict the recipe whose key is that number
-		#filter(, matching_recipes)
-		#3.3.Displays the recipe in index.html OR create list holding all recipes and then
-		#    we loop through them to display them
+		#3. Create a function that accepts 'selected_number' and 'matching_recipes' list of touples.
+			3.1. this function has a for loop that runs 'selected_number' of times.
+			     Each time it runs the random_integer (limits 1:length of 'matching_recipes')
+			     the chosen recipes as store in a list that is returned
+
+		#4. Function that displays (renders??) the list or recipes in HTML:
+			4.1. for loop to go through each element of the list
+			4.2. the elements containg the recipes, has a toggle js funtion to show/hide each. 
 	
 		'''
 		#return render_template('index.html', add_form=add_form, kind_recipes=kind_recipes, num_recipes=num_recipes)

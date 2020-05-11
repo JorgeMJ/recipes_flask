@@ -1,11 +1,12 @@
 /* 
 File:        js/style.js
 Description: It contains the JavaScript functions to toggle the buttons to get recipes (getBtnRecipes),
-             add recipes (adddBtnRecipes), and show the description of recipes (showDescription)
+             add recipes (addBtnRecipes), and show the description of recipes (showDescription)
 */
 
 function toggle(htmlItem){
-	var x = document.getElementById(htmlItem);
+	/* Toggles the htmlItem passed as an argument */
+	let x = document.getElementById(htmlItem);
 
 	if (x.style.display !== "block"){
 		x.style.display = "block";
@@ -16,22 +17,20 @@ function toggle(htmlItem){
 }
 
 function showDescription(id){
+	/* Toggles the description of each displayed recipe */
     toggle(`descript${id}`); 
 }
 
-
-
-
-//OUTPUT: In 'kind' recipes, it unchecks 'All' whenever any other option is checked. 
 function uncheckAll() {
-	$(document).getElementsByClass('kindRecipes')[0].checked=false;
+	/* Unchecks option 'All' form 'Get recipe Form' if any other option is checked */
+	$('.kindRecipesAll')[0].checked=false;
 }
 
-//OUTPUT: In 'kind' recipes, it unchecks every kind whenever 'All' is checked.
 function uncheckKindRecipes(){
-	let kindRecipes = document.getElementsByClass('kindRecipes');
+	/* Unchecks any option form 'Get recipe Form' if option 'All' is checked. */
+	let kindRecipes = $('.kindRecipes');
 
-	for(i=1; i < kindRecipes.length; i++)
+	for(i=0; i < kindRecipes.length; i++)
 	{
 		kindRecipes[i].checked = false;
 	}
