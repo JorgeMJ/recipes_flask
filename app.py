@@ -62,6 +62,10 @@ def submit():
 			flash("That recipe already exists. Provide a different recipe.", "warning")
 			return render_template('index.html')
 		'''
+		'''
+		##**Add a 'try-catch' block if the submition throws an error. It catches an error flash 'an error ocurred'**
+		##**if not, flash 'success' and finally, redirect (either case)
+		'''
 		#Add new recipe to the DB
 		new_recipe = Recipe(name, kind, time, ingredients, description)
 		db.session.add(new_recipe)
@@ -73,41 +77,34 @@ def submit():
 	elif request.method == 'GET':
 		
 		selected_recipes = {
-			'all': get_form.all.data,
-			'soup': get_form.soup.data,
-			'salad': get_form.salad.data,
-			'meat': get_form.meat.data,
-			'fish': get_form.fish.data,
-			'legumes': get_form.legumes.data,
-			'rice': get_form.rice.data,
-			'pasta': get_form.pasta.data,
-			'vegetables': get_form.vegetables.data,
-			'dessert': get_form.dessert.data,
-			'bread': get_form.bread.data
+			'All': get_form.all.data,
+			'Soup': get_form.soup.data,
+			'Salad': get_form.salad.data,
+			'Meat': get_form.meat.data,
+			'Fish': get_form.fish.data,
+			'Legumes': get_form.legumes.data,
+			'Rice': get_form.rice.data,
+			'Pasta': get_form.pasta.data,
+			'Vegetables': get_form.vegetables.data,
+			'Dessert': get_form.dessert.data,
+			'Bread': get_form.bread.data
 		}
 		selected_number = get_form.number.data
 
 		#create a list of selected recipes
 		selected_recipes_list = list( map(lambda elem: elem[0], list( filter( lambda elem: elem[1], selected_recipes.items() ))))
 		
+		#Selects from the DB the recipes of the selected kinds
+		match_recipes = []
+		for item in selected_recipes_list:
+			for elem in db.session.query(Recipe).filter(Recipe.kind == item).all():
+				match_recipes.append(elem)
 
-		'''
-		this flash shows on load. How to fix it??
-		if len(selected_recipes_list) == 0:
-			flash("You must select a recipe kind.", "warning")
-		else:
-			pass
-
-		#1. Extract all recipes that are of kind_recipes
-		rcps = []
-		for kind in kind_recipes:
-			rcps += db.session.query(Recipe).filter(Recipe.kind == kind).all()
-
-			1.1. if the total number of recipes is less than the selected_number, flash and redirect.
-
-		#2. Put recipes in a list of tuples where first element of each tuple is a number
-		matching_recipes = list(enumerate(rcps))
+			#1.1. if the total number of recipes is less than the selected_number, flash and redirect.
 		
+		#2. Put recipes in a list of tuples where first element of each tuple is a number
+		numbered_match_recipes = list(enumerate(match_recipes))
+		'''
 		#3. Create a function that accepts 'selected_number' and 'matching_recipes' list of touples.
 			3.1. this function has a for loop that runs 'selected_number' of times.
 			     Each time it runs the random_integer (limits 1:length of 'matching_recipes')

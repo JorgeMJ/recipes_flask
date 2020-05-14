@@ -1,5 +1,5 @@
 
-$(document).ready(function()
+$(document).onload(function()
 {
 	/*Makes option 'All' from 'Get Recipe Form' checked as default if no
 	 other option is already selected.*/ 
