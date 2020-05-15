@@ -5,6 +5,7 @@ import psycopg2
 from recipeForms import AddRecipeForm, GetRecipeForm
 
 
+
 app = Flask(__name__)
 
 app.debug=True
@@ -75,7 +76,17 @@ def submit():
 		return redirect(url_for('submit')) 
 
 	elif request.method == 'GET':
+
+		def numberedRecipeList(inputRecipeList):
+			''' Returns a list of tuples of the selected recipe kind.
+				Each tuple has 2 elements: 1st, unique integer; 2nd, the recipe. '''
+			match_recipes = []
+			for item in inputRecipeList:
+				for elem in db.session.query(Recipe).filter(Recipe.kind == item).all():
+					match_recipes.append(elem)
+			return list(enumerate(match_recipes))
 		
+		#Gets the selection from 'Get Recipe Form'.
 		selected_recipes = {
 			'All': get_form.all.data,
 			'Soup': get_form.soup.data,
@@ -91,21 +102,13 @@ def submit():
 		}
 		selected_number = get_form.number.data
 
-		#create a list of selected recipes
+		#Creates a list of selected recipes
 		selected_recipes_list = list( map(lambda elem: elem[0], list( filter( lambda elem: elem[1], selected_recipes.items() ))))
-		
-		#Selects from the DB the recipes of the selected kinds
-		match_recipes = []
-		for item in selected_recipes_list:
-			for elem in db.session.query(Recipe).filter(Recipe.kind == item).all():
-				match_recipes.append(elem)
 
-			#1.1. if the total number of recipes is less than the selected_number, flash and redirect.
-		
-		#2. Put recipes in a list of tuples where first element of each tuple is a number
-		numbered_match_recipes = list(enumerate(match_recipes))
+		numbered_recipe_list = numberedRecipeList(selected_recipes_list)
+
 		'''
-		#3. Create a function that accepts 'selected_number' and 'matching_recipes' list of touples.
+		#3. Function that accepts 'selected_number' and 'matching_recipes' list of touples.
 			3.1. this function has a for loop that runs 'selected_number' of times.
 			     Each time it runs the random_integer (limits 1:length of 'matching_recipes')
 			     the chosen recipes as store in a list that is returned
