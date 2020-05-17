@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 from recipeForms import AddRecipeForm, GetRecipeForm
-
+from retrieve import selectRecipes, getRandomIndex
 
 
 app = Flask(__name__)
@@ -46,7 +46,7 @@ class Recipe(db.Model):
 
 
 @app.route('/', methods=['POST', 'GET'])
-def submit():
+def index():
 	add_form = AddRecipeForm()
 	get_form = GetRecipeForm(request.args)
 	
@@ -73,21 +73,26 @@ def submit():
 		db.session.commit()
 
 		flash('Success! Your recipe has been added.', 'success')
-		return redirect(url_for('submit')) 
+		return redirect(url_for('index')) 
 
-	elif request.method == 'GET':
+	return render_template('index.html', add_form=add_form, get_form=get_form)
 
-		def numberedRecipeList(inputRecipeList):
-			''' Returns a list of tuples of the selected recipe kind.
-				Each tuple has 2 elements: 1st, unique integer; 2nd, the recipe. '''
+@app.route('/submit', methods=['GET'])
+def submit():
+	if request.method == 'GET':
+		add_form = AddRecipeForm()
+		get_form = GetRecipeForm(request.args)
+
+		def recipesFromDB(inputRecipeList):
+			''' Returns a list of all recipes from the database of the selected kinds. '''
 			match_recipes = []
 			for item in inputRecipeList:
 				for elem in db.session.query(Recipe).filter(Recipe.kind == item).all():
 					match_recipes.append(elem)
-			return list(enumerate(match_recipes))
+			return match_recipes
 		
 		#Gets the selection from 'Get Recipe Form'.
-		selected_recipes = {
+		selected_kind = {
 			'All': get_form.all.data,
 			'Soup': get_form.soup.data,
 			'Salad': get_form.salad.data,
@@ -100,17 +105,23 @@ def submit():
 			'Dessert': get_form.dessert.data,
 			'Bread': get_form.bread.data
 		}
-		selected_number = get_form.number.data
+		selected_number = int(get_form.number.data)
 
 		#Creates a list of selected recipes
-		selected_recipes_list = list( map(lambda elem: elem[0], list( filter( lambda elem: elem[1], selected_recipes.items() ))))
+		selected_kind_list = list( map(lambda elem: elem[0], list( filter( 
+			lambda elem: elem[1], selected_kind.items() ))))
 
-		numbered_recipe_list = numberedRecipeList(selected_recipes_list)
-
+		#Numbers each recipe form 'selected_recipes_list', creating a list of tuples.
+		recipes_from_db = recipesFromDB(selected_kind_list)
+		print("\n getRandomIndex UPERLIMIT", getRandomIndex(recipes_from_db) )
+		#
+		#selected_recipes = selectRecipes(selected_number, recipes_from_db)
+		
+		#print("\n*** My recipes: ", selected_recipes)
 		'''
-		#3. Function that accepts 'selected_number' and 'matching_recipes' list of touples.
+		#3. Function that accepts 'selected_number' and 'recipes_from_db' list.
 			3.1. this function has a for loop that runs 'selected_number' of times.
-			     Each time it runs the random_integer (limits 1:length of 'matching_recipes')
+			     Each time it runs the random_integer (limits 0:length of 'matching_recipes')
 			     the chosen recipes as store in a list that is returned
 
 		#4. Function that displays (renders??) the list or recipes in HTML:
@@ -123,7 +134,7 @@ def submit():
 	
 	#In case the POST submition didn't go well
 	#return render_template('index.html', add_form=add_form, kind_recipes=kind_recipes, num_recipes=num_recipes)
-	return render_template('index.html', add_form=add_form, get_form=get_form)
+	#return render_template('index.html', add_form=add_form, get_form=get_form)
 
 if __name__ == "__main__":
 	app.run()
