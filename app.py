@@ -49,7 +49,13 @@ class Recipe(db.Model):
 def index():
 	add_form = AddRecipeForm()
 	get_form = GetRecipeForm(request.args)
-	
+	return render_template('index.html', add_form=add_form, get_form=get_form)
+
+@app.route('/submit', methods=['POST', 'GET'])
+def submit():	
+	add_form = AddRecipeForm()
+	get_form = GetRecipeForm(request.args)
+
 	if add_form.validate_on_submit():	
 		#Takes the input data from form
 		name = add_form.name.data
@@ -75,13 +81,7 @@ def index():
 		flash('Success! Your recipe has been added.', 'success')
 		return redirect(url_for('index')) 
 
-	return render_template('index.html', add_form=add_form, get_form=get_form)
-
-@app.route('/submit', methods=['GET'])
-def submit():
-	if request.method == 'GET':
-		add_form = AddRecipeForm()
-		get_form = GetRecipeForm(request.args)
+	elif request.method == 'GET':
 
 		def recipesFromDB(inputRecipeList):
 			''' Returns a list of all recipes from the database of the selected kinds. '''
@@ -110,7 +110,9 @@ def submit():
 		#Creates a list of selected recipes
 		selected_kind_list = list( map(lambda elem: elem[0], list( filter( 
 			lambda elem: elem[1], selected_kind.items() ))))
-
+		if len(selected_kind_list) == 0:
+			flash('You have to choose a kind', 'warning')
+			return redirect(url_for('index'))
 		#Numbers each recipe form 'selected_recipes_list', creating a list of tuples.
 		recipes_from_db = recipesFromDB(selected_kind_list)
 		print("\n getRandomIndex UPERLIMIT", getRandomIndex(recipes_from_db) )
@@ -129,12 +131,11 @@ def submit():
 			4.2. the elements containg the recipes, has a toggle js funtion to show/hide each. 
 	
 		'''
-		#return render_template('index.html', add_form=add_form, kind_recipes=kind_recipes, num_recipes=num_recipes)
 		return render_template('index.html', add_form=add_form, get_form=get_form)
 	
 	#In case the POST submition didn't go well
 	#return render_template('index.html', add_form=add_form, kind_recipes=kind_recipes, num_recipes=num_recipes)
-	#return render_template('index.html', add_form=add_form, get_form=get_form)
+	return render_template('index.html', add_form=add_form, get_form=get_form)
 
 if __name__ == "__main__":
 	app.run()
