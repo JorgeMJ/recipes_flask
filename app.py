@@ -84,7 +84,7 @@ def submit():
 	elif request.method == 'GET':
 
 		def recipesFromDB(inputRecipeList):
-			''' Returns a list of all recipes from the database of the selected kinds. '''
+			''' Returns a list of all recipes from the DB of the selected kinds. '''
 			match_recipes = []
 			for item in inputRecipeList:
 				for elem in db.session.query(Recipe).filter(Recipe.kind == item).all():
@@ -107,34 +107,27 @@ def submit():
 		}
 		selected_number = int(get_form.number.data)
 
-		#Creates a list of selected recipes
+		#Creates a list of selected recipe kind.
 		selected_kind_list = list( map(lambda elem: elem[0], list( filter( 
 			lambda elem: elem[1], selected_kind.items() ))))
-		if len(selected_kind_list) == 0:
-			flash('You have to choose a kind', 'warning')
-			return redirect(url_for('index'))
-		#Numbers each recipe form 'selected_recipes_list', creating a list of tuples.
-		recipes_from_db = recipesFromDB(selected_kind_list)
-		print("\n getRandomIndex UPERLIMIT", getRandomIndex(recipes_from_db) )
-		#
-		#selected_recipes = selectRecipes(selected_number, recipes_from_db)
-		
-		#print("\n*** My recipes: ", selected_recipes)
-		'''
-		#3. Function that accepts 'selected_number' and 'recipes_from_db' list.
-			3.1. this function has a for loop that runs 'selected_number' of times.
-			     Each time it runs the random_integer (limits 0:length of 'matching_recipes')
-			     the chosen recipes as store in a list that is returned
 
+		#Makes sure at least recipe kind has been seleted.
+		if len(selected_kind_list) == 0:
+			flash('You have to choose a recipe kind', 'warning')
+			return redirect(url_for('index'))
+
+		#Creates a list of as many random recipes from DB as has been selected.
+		selected_recipes = selectRecipes(selected_number, recipesFromDB(selected_kind_list))
+		
+		print("\n*** My recipes: ", selected_recipes)
+		'''
 		#4. Function that displays (renders??) the list or recipes in HTML:
 			4.1. for loop to go through each element of the list
 			4.2. the elements containg the recipes, has a toggle js funtion to show/hide each. 
-	
 		'''
 		return render_template('index.html', add_form=add_form, get_form=get_form)
 	
 	#In case the POST submition didn't go well
-	#return render_template('index.html', add_form=add_form, kind_recipes=kind_recipes, num_recipes=num_recipes)
 	return render_template('index.html', add_form=add_form, get_form=get_form)
 
 if __name__ == "__main__":
