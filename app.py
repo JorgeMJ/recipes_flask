@@ -56,6 +56,7 @@ def submit():
 	add_form = AddRecipeForm()
 	get_form = GetRecipeForm(request.args)
 
+	#If the request is 'POST', handles 'Add Recipe Form'
 	if add_form.validate_on_submit():	
 		#Takes the input data from form
 		name = add_form.name.data
@@ -64,15 +65,11 @@ def submit():
 		ingredients = add_form.ingredients.data
 		description = add_form.description.data
 
-		'''
-		if db.session.query(Recipe).filter(Recipe.name == name).count() == 1:
-			flash("That recipe already exists. Provide a different recipe.", "warning")
-			return render_template('index.html')
-		'''
-		'''
-		##**Add a 'try-catch' block if the submition throws an error. It catches an error flash 'an error ocurred'**
-		##**if not, flash 'success' and finally, redirect (either case)
-		'''
+		#Make sure there are only uniquely named recipes in the DB.
+		if db.session.query(Recipe).filter(Recipe.name == name).count() >= 1:
+			flash(f"A recipe under the name \"{name}\" already exists. Provide a different name.", "warning")
+			return render_template('index.html', add_form=add_form, get_form=get_form)
+	
 		#Add new recipe to the DB
 		new_recipe = Recipe(name, kind, time, ingredients, description)
 		db.session.add(new_recipe)
@@ -81,6 +78,7 @@ def submit():
 		flash('Success! Your recipe has been added.', 'success')
 		return redirect(url_for('index')) 
 
+	#If the request is 'GET', handles 'Get Recipes Form'.
 	elif request.method == 'GET':
 
 		def recipesFromDB(inputRecipeList):
@@ -101,9 +99,9 @@ def submit():
 			'Legumes': get_form.legumes.data,
 			'Rice': get_form.rice.data,
 			'Pasta': get_form.pasta.data,
-			'Vegetables': get_form.vegetables.data,
+			'Vegetables/Fruit': get_form.vegetables.data,
 			'Dessert': get_form.dessert.data,
-			'Bread': get_form.bread.data
+			'Bread/Baked': get_form.bread.data
 		}
 		selected_number = int(get_form.number.data)
 
@@ -111,23 +109,31 @@ def submit():
 		selected_kind_list = list( map(lambda elem: elem[0], list( filter( 
 			lambda elem: elem[1], selected_kind.items() ))))
 
-		#Makes sure at least recipe kind has been seleted.
+		#If 'All' is selected, manages 'selected_kind_list'.
+		if len(selected_kind_list) == 1 and selected_kind_list[0] == 'All':
+			selected_kind_list = ['Soup', 'Salad', 'Meat', 'Fish', 'Legumes', 'Rice', 'Pasta',
+								'Vegetables/Fruit', 'Dessert', 'Bread/Baked']
+
+		#Makes sure at least one recipe kind has been seleted.
 		if len(selected_kind_list) == 0:
-			flash('You have to choose a recipe kind', 'warning')
+			flash('Select at least one recipe kind.', 'warning')
+			return redirect(url_for('index'))
+
+		#Retrieves all recipes from DB belonging to selected kinds.
+		recipes_from_db = recipesFromDB(selected_kind_list)
+
+		#Makes sure the selected number of recipes is appropiate.
+		if len(recipes_from_db) == 0:
+			flash('There is no recipes for that kind.', 'warning')
+			return redirect(url_for('index'))
+		if len(recipes_from_db) < selected_number:
+			flash('Select a smaller number of recipes.', 'warning')
 			return redirect(url_for('index'))
 
 		#Creates a list of as many random recipes from DB as has been selected.
-		selected_recipes = selectRecipes(selected_number, recipesFromDB(selected_kind_list))
+		selected_recipes = selectRecipes(selected_number, recipes_from_db)
 		
-		print("\n*** My recipes: ", selected_recipes)
-		'''
-		#4. Function that displays (renders??) the list or recipes in HTML:
-			4.1. for loop to go through each element of the list
-			4.2. the elements containg the recipes, has a toggle js funtion to show/hide each. 
-		'''
-		return render_template('index.html', add_form=add_form, get_form=get_form)
-	
-	#In case the POST submition didn't go well
+	#In case the POST submition didn't go well.
 	return render_template('index.html', add_form=add_form, get_form=get_form)
 
 if __name__ == "__main__":

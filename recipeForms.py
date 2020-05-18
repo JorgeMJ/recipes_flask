@@ -1,4 +1,4 @@
-'''Contains the class to create forms to add recipes including validation'''
+'''Contains the classes to create 'Add Recipe Form' and 'Get Recipe Form' including validation'''
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, TextAreaField, IntegerField, SelectField, BooleanField, RadioField, Form

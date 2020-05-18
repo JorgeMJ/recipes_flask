@@ -26,34 +26,7 @@
 
 <div id= "getRecipes-container">
 	<form name="getRecipes" id="getRecipesForm" action="/submit" method="GET"><!--Check if the name "getRecipes is used at all" -->
-
 		<legend>Get Your Recipe</legend>
-		<!--<div>
-			<div><label><strong>Type:</strong></label></div>
-			<input type="checkbox" name="kindRecipes" value="all" onclick="uncheckEveryKind()" checked>All 
-			<input type="checkbox" name="kindRecipes" value="Soup" onclick="uncheckAll()">Soup
-			<input type="checkbox" name="kindRecipes" value="Salad" onclick="uncheckAll()">Salad
-			<input type="checkbox" name="kindRecipes" value="Meat" onclick="uncheckAll()">Meat
-			<input type="checkbox" name="kindRecipes" value="Fish" onclick="uncheckAll()">Fish
-			<input type="checkbox" name="kindRecipes" value="Legumes" onclick="uncheckAll()">Legumes
-			<input type="checkbox" name="kindRecipes" value="Rice" onclick="uncheckAll()">Rice
-			<input type="checkbox" name="kindRecipes" value="Pasta" onclick="uncheckAll()">Pasta
-			<input type="checkbox" name="kindRecipes" value="Vegetables/Fruit" onclick="uncheckAll()">Vegetables/Fruit
-			<input type="checkbox" name="kindRecipes" value="Dessert" onclick="uncheckAll()">Dessert
-			<input type="checkbox" name="kindRecipes" value="Bread/Baked" onclick="uncheckAll()">Bread/Baked
-		</div>
-		<div>
-			<div><label><strong>Number of Recipes:</strong></label></div>
-			<input type= "radio" name= "numRecipes" value= "1" checked>1
-			<input type= "radio" name= "numRecipes" value= "2">2
-			<input type= "radio" name= "numRecipes" value= "3">3
-			<input type= "radio" name= "numRecipes" value= "4">4
-			<input type= "radio" name= "numRecipes" value= "5">5
-			<input type= "radio" name= "numRecipes" value= "6">6
-			<input type= "radio" name= "numRecipes" value= "7">7
-		</div>
-		<input type="submit" value="Get your Recipe" id="getBtnSubmit" />-->
-		
 
 		{% for field in get_form if field.name != "submit" and field.type == "BooleanField" %}
 			{% if field.name == 'all'%}
