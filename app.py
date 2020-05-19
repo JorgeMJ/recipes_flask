@@ -70,7 +70,7 @@ def submit():
 			flash(f"A recipe under the name \"{name}\" already exists. Provide a different name.", "warning")
 			return render_template('index.html', add_form=add_form, get_form=get_form)
 	
-		#Add new recipe to the DB
+		#Add new recipe to the DB ##Try-catch block
 		new_recipe = Recipe(name, kind, time, ingredients, description)
 		db.session.add(new_recipe)
 		db.session.commit()
@@ -80,7 +80,6 @@ def submit():
 
 	#If the request is 'GET', handles 'Get Recipes Form'.
 	elif request.method == 'GET':
-
 		def recipesFromDB(inputRecipeList):
 			''' Returns a list of all recipes from the DB of the selected kinds. '''
 			match_recipes = []
@@ -119,7 +118,7 @@ def submit():
 			flash('Select at least one recipe kind.', 'warning')
 			return redirect(url_for('index'))
 
-		#Retrieves all recipes from DB belonging to selected kinds.
+		#Retrieves all recipes from DB belonging to selected kinds.##Try-catch block
 		recipes_from_db = recipesFromDB(selected_kind_list)
 
 		#Makes sure the selected number of recipes is appropiate.
@@ -134,7 +133,7 @@ def submit():
 		selected_recipes = selectRecipes(selected_number, recipes_from_db)
 		
 	#In case the POST submition didn't go well.
-	return render_template('index.html', add_form=add_form, get_form=get_form)
+	return render_template('index.html', add_form=add_form, get_form=get_form, selected_recipes=selected_recipes)
 
 if __name__ == "__main__":
 	app.run()

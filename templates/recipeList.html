@@ -1,9 +1,25 @@
-<p>I am recipesList html</p>
 
-<!--{% if matching_recipes %}
-	{% for recipe in matching_recipes %}
-		<div>
-			{{ recipe[0], recipe[1].name }}
+
+{% if selected_recipes %}
+	{% for recipe in selected_recipes %}
+
+		<div class="rcpWrapper">
+			<div>
+				<button class="rcpName">{{ recipe.name }}</button>
+				<div class="rcpKind">{{ recipe.kind }}</div>
+				<div class="rcpTime">{{ recipe.time }} mins</div> 
+			</div>
+
+			<div class="innerRcpWrapper">
+				<div class="ingredientsList">
+					{{ recipe.ingredients }}
+				</div>
+
+				<div class="rcpDescription">
+					{{ recipe.description }}
+				</div>
+			</div>
 		</div>
+
 	{% endfor %}
-{% endif %}-->
+{% endif %}

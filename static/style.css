@@ -50,7 +50,7 @@ h1{
 
 /*-- Get Recipe Form ---------------------------------------------------------------------------------------------*/
 #getRecipesForm {
-	margin: 20 auto;
+	margin: 20 auto 0 auto;
 	padding: 20px;
 	padding-bottom: 0;
 	width: 750px;
@@ -100,11 +100,18 @@ textarea {
 }
 
 /********************** list of selected recipes to be displayed*****************************/
+.rcpWrapper {
+	border-bottom: 1px solid #1FB622;
+	padding: 10px 0;
+	max-width: 750px;
+}
+
 .rcpName {
 	background-color: #CFF0C5;
 	border-style: none;
 	height: 30px;
-	width: 500px;
+	width: 450px;
+	border-radius: 5px;
 	display:inline-block;
 }
 
@@ -114,28 +121,37 @@ textarea {
 }
 
 .rcpTime {
+	background-color: red;
 	height: auto;
-	width: 100px;
-	margin-left: 10px;
+	width: 80px;
 	display:inline-block;
 }
 
 .rcpKind {
+	background-color: blue;
 	height: auto;
-	width: 200px;
-	margin-left: 10px;
+	width: 150px;
 	display:inline-block;
 }
 
-.rcpDescription {
-	height: auto;
-	width: 60%;
-	margin: 0 auto 10px auto;
-	display: none;
+.innerRcpWrapper {
+	background-color: orange;
+	padding: 10px 10px 0 10px;
+	text-align: left;
 }
 
 .ingredientsList {
-	width: 80%;
+	background-color: green;
+	/*width: 80%;*/
+	margin: auto 20px;
+	text-align: left;
+}
+
+.rcpDescription {
+	background-color: pink;
+	height: auto;
+	margin: 5px 20px;
+	text-align: left;
 }
 
 /* -- Footer ---------------------------------------------------------------------------------------------------*/
