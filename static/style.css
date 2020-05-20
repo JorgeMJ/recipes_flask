@@ -99,7 +99,7 @@ textarea {
 	height: 80px;
 }
 
-/********************** list of selected recipes to be displayed*****************************/
+/*-- List of Selected Recipes ------------------------------------------------------------------------------------*/
 .rcpWrapper {
 	border-bottom: 1px solid #1FB622;
 	padding: 10px 0;
@@ -121,34 +121,32 @@ textarea {
 }
 
 .rcpTime {
-	background-color: red;
 	height: auto;
 	width: 80px;
 	display:inline-block;
 }
 
 .rcpKind {
-	background-color: blue;
 	height: auto;
 	width: 150px;
 	display:inline-block;
 }
 
 .innerRcpWrapper {
-	background-color: orange;
 	padding: 10px 10px 0 10px;
 	text-align: left;
+	display: none;
 }
 
 .ingredientsList {
-	background-color: green;
-	/*width: 80%;*/
 	margin: auto 20px;
+}
+
+.ingredientsList li {
 	text-align: left;
 }
 
 .rcpDescription {
-	background-color: pink;
 	height: auto;
 	margin: 5px 20px;
 	text-align: left;

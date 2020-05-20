@@ -131,7 +131,7 @@ def submit():
 
 		#Creates a list of as many random recipes from DB as has been selected.
 		selected_recipes = selectRecipes(selected_number, recipes_from_db)
-		
+
 	#In case the POST submition didn't go well.
 	return render_template('index.html', add_form=add_form, get_form=get_form, selected_recipes=selected_recipes)
 

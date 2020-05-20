@@ -6,7 +6,7 @@ def getRandomIndex(upperlimit):
 	''' Generates a random integer between 0 and the entered upper limit.
 	    This integer will be used as an index for 'recipes_from_db' list'''
 	return random.randint(0, upperlimit)
-
+	
 
 def selectRecipes(numrecipes, recipelist):
 	''' Returns a list containing randomly selected items from an input list. '''

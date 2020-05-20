@@ -4,21 +4,20 @@ Description: It contains the JavaScript functions to toggle the buttons to get r
              add recipes (addBtnRecipes), and show the description of recipes (showDescription)
 */
 
-function toggle(htmlItem){
-	/* Toggles the htmlItem passed as an argument */
-	let x = document.getElementById(htmlItem);
-
-	if (x.style.display !== "block"){
-		x.style.display = "block";
-	}
-	else{
-		x.style.display = "none";
-	}
-}
 
 function showDescription(id){
 	/* Toggles the description of each displayed recipe */
-    toggle(`descript${id}`); 
+    let x = document.getElementById('descript'+id);
+    console.log(x)
+
+	if (x.style.display !== "block")
+	{
+		x.style.display = "block";
+	}
+	else
+	{
+		x.style.display = "none";
+	}
 }
 
 function uncheckAll() {
