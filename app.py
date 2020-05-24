@@ -115,7 +115,7 @@ def submit():
 
 		#Makes sure at least one recipe kind has been seleted.
 		if len(selected_kind_list) == 0:
-			flash('Select at least one recipe kind.', 'warning')
+			flash('Select at least one recipe kind.', 'info')
 			return redirect(url_for('index'))
 
 		#Retrieves all recipes from DB belonging to selected kinds.##Try-catch block
@@ -123,10 +123,10 @@ def submit():
 
 		#Makes sure the selected number of recipes is appropiate.
 		if len(recipes_from_db) == 0:
-			flash('There is no recipes for that kind.', 'warning')
+			flash('There is no recipes for that kind.', 'info')
 			return redirect(url_for('index'))
 		if len(recipes_from_db) < selected_number:
-			flash('Select a smaller number of recipes.', 'warning')
+			flash('Select a smaller number of recipes.', 'info')
 			return redirect(url_for('index'))
 
 		#Creates a list of as many random recipes from DB as has been selected.

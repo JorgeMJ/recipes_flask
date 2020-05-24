@@ -8,7 +8,6 @@ Description: It contains the JavaScript functions to toggle the buttons to get r
 function showDescription(id){
 	/* Toggles the description of each displayed recipe */
     let x = document.getElementById('descript'+id);
-    console.log(x)
 
 	if (x.style.display !== "block")
 	{
