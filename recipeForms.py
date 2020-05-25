@@ -5,6 +5,7 @@ from wtforms import StringField, SubmitField, TextAreaField, IntegerField, Selec
 from wtforms.validators import DataRequired 
 
 class AddRecipeForm(FlaskForm):
+	''' Defines an AddRecipeForm object.'''
 	name =        StringField("Recipe: ", validators=[DataRequired()])
 	kind =        SelectField("Kind: ", choices=[('Soup', 'Soup'), ('Salad','Salad'), ('Meat','Meat'), ('Fish','Fish'),
 	              ('Legumes','Legumes'), ('Rice','Rice'), ('Pasta','Pasta'), ('Vegetables/Fruit','Vegetables/Fruit'),
@@ -15,8 +16,14 @@ class AddRecipeForm(FlaskForm):
 	
 	submit = SubmitField("Submit Your Recipe")
 
+	def __repr__(self):
+		''' Returns an object representation of the class. '''
+		return '{self.__class__.__name__}'.format(self=self)
+
+
 
 class GetRecipeForm(Form):
+	''' Define a GetRecipeForm object. '''
 	all =        BooleanField('All')
 	soup =       BooleanField('Soup')
 	salad =      BooleanField('Salad')
@@ -28,8 +35,11 @@ class GetRecipeForm(Form):
 	vegetables = BooleanField('Vegetables/Fruit')
 	dessert =    BooleanField('Desserts')
 	bread =      BooleanField('Bread/Baked')
-
 	number =     RadioField("Number of Recipes:", choices=[('1', '1'), ('2', '2'), ('3', '3'),
 				 ('4', '4'), ('5', '5'), ('6', '6'), ('7', '7')], default='1')
 
 	submit = SubmitField("Get Your Recipe")
+
+	def __repr__(self):
+		''' Returns an object representation of the class. '''
+		return '{self.__class__.__name__}'.format(self=self)

@@ -1,22 +1,20 @@
-''' Main function that will call the necessary functions '''
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 import psycopg2
 from recipeForms import AddRecipeForm, GetRecipeForm
-from retrieve import selectRecipes, getRandomIndex
+from retrieve import selectRecipes
 
 
 app = Flask(__name__)
 
 app.debug=True
-#required by 'flash' becasue it works based on cookies
-#app.secret_key = 'my secret key'
+#Required by 'flash' becuse it works based on cookies.
 app.config['SECRET_KEY'] = 'my secret key'
 
-#Variable ENV determines the environment
+#Variable ENV determines the environment.
 ENV = 'dev'
 
-#Set the environment
+#Sets the environment.
 if ENV == 'dev':
 	app.debug = True
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost/random_recipes'
@@ -24,11 +22,11 @@ else:
 	app.config['SQLALCHEMY_DATABASE_URI'] =''
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-#Create the database object
+#Create the database object.
 db = SQLAlchemy(app)
 
-#Crate the table for the DB
 class Recipe(db.Model):
+	''' Creates table 'recipes' in the DB. '''
 	__tablename__='recipes'
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(200), unique=True)
@@ -38,11 +36,17 @@ class Recipe(db.Model):
 	description = db.Column(db.Text())
 
 	def __init__(self, name, kind, time, ingredients, description):
+		''' Constructor: takes the arguments created by db.Columns to initiate the instance variables. '''
 		self.name = name
 		self.kind = kind 
 		self.time = time
 		self.ingredients = ingredients
 		self.description = description
+
+	def __repr__(self):
+		''' Returns an object representation of the class. '''
+		return '{self.__class__.__name__}({self.name}, {self.kind}, {self.time},\
+		 {self.ingredients}, {self.description})'.format(self=self)
 
 
 @app.route('/', methods=['POST', 'GET'])
@@ -129,7 +133,7 @@ def submit():
 			flash('Select a smaller number of recipes.', 'info')
 			return redirect(url_for('index'))
 
-		#Creates a list of as many random recipes from DB as has been selected.
+		#Creates a list of as many random recipes from DB as has been selected (selected_number).
 		selected_recipes = selectRecipes(selected_number, recipes_from_db)
 
 	#In case the POST submition didn't go well.
