@@ -12,14 +12,15 @@ app.debug=True
 app.config['SECRET_KEY'] = 'my secret key'
 
 #Variable ENV determines the environment.
-ENV = 'dev'
+#ENV = 'dev'
+ENV = 'prod'
 
 #Sets the environment.
 if ENV == 'dev':
 	app.debug = True
 	app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:123456@localhost/random_recipes'
-else:
-	app.config['SQLALCHEMY_DATABASE_URI'] =''
+elif ENV == 'prod':
+	app.config['SQLALCHEMY_DATABASE_URI'] =' postgres://kvemcljzieriis:5e9759b8f104f94c0c73ac467a31b35611d00c73067fc38b36d2888e6d4d9e7b@ec2-52-207-25-133.compute-1.amazonaws.com:5432/d76pt4klo7mt0m'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #Create the database object.
