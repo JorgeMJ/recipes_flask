@@ -10,7 +10,7 @@ RANDOM_RECIPES:
 
 Random_Recipe_Selector is a Flask app that allows users to obtain recipes from the database in a random fashion but following the restrictions the user chooses: Number of recipes to be displayed and kind of recipes. The user can also add recipes to the database that will become part of the recipe pool from which the program select recipes randomly.
 
-You can try the Random_Recipe_Selector here: [heroku link]
+You can try the Random_Recipe_Selector here: https://young-lowlands-24109.herokuapp.com/
 
 FILE STRUCTURE:
 
@@ -73,9 +73,19 @@ FILES:
 	<li>runtime.txt : Specifies what Python version is needed.</li>
 </ul>
 
-*NOTE: WTForms package seems to have a bug that doesn't allow the attribute 'default=checked' for BooleanField to work. To walk around this issue, I wrote a function in 'script.js' that checks the checkbox 'All' for 'Get Recipe Form' if no other checkbox has been previously checked in redirection.
+**NOTE: WTForms package seems to have a bug that doesn't allow the attribute 'default=checked' for BooleanField to work. To walk around this issue, I wrote a function in 'script.js' that checks the checkbox 'All' for 'Get Recipe Form' if no other checkbox has been previously checked in redirection.
 
 RUNNING:
+
+To run it locally in development mode, you have to change in 'app.py' the variable ENV = 'prod' to ENV = 'dev'
+
+After setting the database, it is necessary to create the table 'feedback' that will hold all the information the user introduces. To do that, you have to open the Python interpreter and run the following:
+
+from app import db
+
+db.create_all()
+
+exit()
 
 CONTACT:
 
