@@ -73,19 +73,18 @@ FILES:
 	<li>runtime.txt : Specifies what Python version is needed.</li>
 </ul>
 
-**NOTE: WTForms package seems to have a bug that doesn't allow the attribute 'default=checked' for BooleanField to work. To walk around this issue, I wrote a function in 'script.js' that checks the checkbox 'All' for 'Get Recipe Form' if no other checkbox has been previously checked in redirection.
+*NOTE: WTForms package seems to have a bug that doesn't allow the attribute 'default=checked' for BooleanField to work. To walk around this issue, I wrote a function in 'script.js' that checks the checkbox 'All' for 'Get Recipe Form' if no other checkbox has been previously checked in redirection.
 
 RUNNING:
 
 To run it locally in development mode, you have to change in 'app.py' the variable ENV = 'prod' to ENV = 'dev'
-
 After setting the database, it is necessary to create the table 'feedback' that will hold all the information the user introduces. To do that, you have to open the Python interpreter and run the following:
 
-from app import db
+	from app import db
 
-db.create_all()
+	db.create_all()
 
-exit()
+	exit()
 
 CONTACT:
 
